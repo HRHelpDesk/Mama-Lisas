@@ -4,7 +4,7 @@ import bag from '../assets/img/bag.svg'
 import { Navbar, Container, Nav } from "react-bootstrap";
 
 
-const NavigationBar = ()=>{
+const NavigationBar = (props)=>{
     return(
         <Navbar bg="light">
         <Container>
@@ -22,7 +22,7 @@ const NavigationBar = ()=>{
           <Nav>
              <Nav.Link>
              <img
-
+              onClick={props.onClickBag}
               src={bag}
               width="50"
               height="50"

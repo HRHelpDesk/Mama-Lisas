@@ -5,14 +5,20 @@ import MenuCategories from "../DataSheets/MenuItems.jsx";
 import MenuCat from "../Components/MenuCat.jsx";
 import { Modal, Button } from "react-bootstrap";
 import { useState } from 'react';
-
+import MenuModal from "../Components/MenuModal.jsx";
+import CartModal from "../Components/CartModal.jsx";
 
 const Menu = ()=>{
     const [lgShow, setLgShow] = useState(false);
+  
+
+  
+  const [modalShow, setModalShow] = useState(false);
+  const [cartModalShow, setCartModalShow] = useState(false);
 
     return(
         <div>
-           <NavigationBar/>
+           <NavigationBar onClickBag={() => setCartModalShow(true)}/>
            <CarouselComponent/>
            <div style={{textAlign:"center", marginTop:'20px'}}>
                <h1 style={{color:'#e32727'}} className="food-font">MENU</h1>
@@ -29,7 +35,15 @@ const Menu = ()=>{
 
 
            </div>
-         
+           <MenuModal
+        show={modalShow}
+        onHide={() => setModalShow(false)}
+      />
+
+<CartModal
+        show={cartModalShow}
+        onHide={() => setCartModalShow(false)}
+      />
 
            <Modal
         size="lg"
@@ -43,11 +57,15 @@ const Menu = ()=>{
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
+
+
+            
+    
             <p><strong>Brazilian Bibimbap Bowl</strong></p>
             <p>This Bowl Of Latin Seoul Is A Fan Fave That Contains A Selection Of Hearty Latin-Korean Flavors. In Order To Enjoy This Dish Properly, You Can Put The Lid On The Bowl And Shake It Around To Fuse The Flavors And Enjoy!
 Each Bowl Contains: Sticky Chimichurri Rice, Black Beans, Lettuce, Bulgogi Beef Strips, Mango Pico, Kimchi, Korean Cucumber Salad, Diced Sweet Potatoes, A Sprinkle Of Green Onions, Toasted Sesame Seeds, And A Dusting Of Mild Gochugaru Flakes.</p>
 <p style={{textAlign:'end'}}><strong>13.00</strong></p>
-<p style={{textAlign:'end'}}><Button>Select</Button></p>
+<p style={{textAlign:'end'}}><Button onClick={() => setModalShow(true)}>Select</Button></p>
 <hr/>
 
 <p><strong>Bulgogi Bowl</strong></p>
