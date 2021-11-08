@@ -11,3 +11,14 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+
+@font-face {
+  font-family: 'Nuvo';
+  src: url(./assets/fonts/Nuvo/ClarityNuvo-Bold.otf) 
+
+} 
+
+.food-font{
+  font-family: Nuvo;
+}
