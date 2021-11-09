@@ -1,13 +1,13 @@
 import React from "react";
 import NavigationBar from '../Components/NavigationBar.jsx';
 import CarouselComponent from "../Components/Carousel.jsx";
-import MenuCategories from "../DataSheets/MenuItems.jsx";
+import MenuCategories, {MenuEntrees} from "../DataSheets/MenuItems.jsx";
 import MenuCat from "../Components/MenuCat.jsx";
 import { Modal, Button } from "react-bootstrap";
 import { useState } from 'react';
 import MenuModal from "../Components/MenuModal.jsx";
 import CartModal from "../Components/CartModal.jsx";
-
+import MenuItem from "../Components/MenuItem.jsx";
 const Menu = ()=>{
     const [lgShow, setLgShow] = useState(false);
   
@@ -15,7 +15,46 @@ const Menu = ()=>{
   
   const [modalShow, setModalShow] = useState(false);
   const [cartModalShow, setCartModalShow] = useState(false);
+let selectedItem;
+  let testOBJ = { 
+    item: 'Beef Bugogi',
+  quantity: '1',
+  total: '13.00'
+}
 
+const findIndexOfItem = (i)=>{
+  const found = MenuEntrees.find(e => e.index == i);
+
+console.log(found);
+
+selectedItem = found
+}
+const addToCart =()=>{
+ 
+
+  
+  if(localStorage.getItem('cart-data') != null){
+    let cartobj = JSON.parse( localStorage.getItem('cart-data'))
+   let cartArr = [cartobj]
+  
+
+    console.log(cartArr)
+    cartArr.forEach(i => {
+      return(
+        alert(`item: ${i.item} quantity: ${i.quantity} total:${i.total}`)
+      )
+      
+    });
+   
+ 
+  } else {
+    localStorage.setItem('cart-data', JSON.stringify(testOBJ))
+
+  
+  }
+
+  setModalShow(false)
+}
     return(
         <div>
            <NavigationBar onClickBag={() => setCartModalShow(true)}/>
@@ -37,7 +76,7 @@ const Menu = ()=>{
            </div>
            <MenuModal
         show={modalShow}
-        onHide={() => setModalShow(false)}
+        onHide={()=>{addToCart()}}
       />
 
 <CartModal
@@ -57,31 +96,9 @@ const Menu = ()=>{
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-
-
-            
-    
-            <p><strong>Brazilian Bibimbap Bowl</strong></p>
-            <p>This Bowl Of Latin Seoul Is A Fan Fave That Contains A Selection Of Hearty Latin-Korean Flavors. In Order To Enjoy This Dish Properly, You Can Put The Lid On The Bowl And Shake It Around To Fuse The Flavors And Enjoy!
-Each Bowl Contains: Sticky Chimichurri Rice, Black Beans, Lettuce, Bulgogi Beef Strips, Mango Pico, Kimchi, Korean Cucumber Salad, Diced Sweet Potatoes, A Sprinkle Of Green Onions, Toasted Sesame Seeds, And A Dusting Of Mild Gochugaru Flakes.</p>
-<p style={{textAlign:'end'}}><strong>13.00</strong></p>
-<p style={{textAlign:'end'}}><Button onClick={() => setModalShow(true)}>Select</Button></p>
-<hr/>
-
-<p><strong>Bulgogi Bowl</strong></p>
-            <p>This Bowl Is Korean Comfort Food. It Contains Sticky Rice, Bulgogi Ground Beef, Korean Radish, Sprouts, Guacamole, Kimchi, Cucumber Salad, Korean Carrots, Mildly Spicy Mayo, A Sprinkle Of Green Onions, And A Dusting Of Mild Gochugaru Flakes. Don’t Forget To Shake And Enjoy!</p>
-<p style={{textAlign:'end'}}><strong>12.00</strong></p>
-<p style={{textAlign:'end'}}><Button>Select</Button></p>
-<hr/>
-<p><strong>Japchae (Chop-Chae) Noodle Bowl</strong></p>
-            <p>Japchae, Sweet Potato Noodles (A.K.A. Glass Noodles) Stir Fried With Vegetables And Chicken or 6 Korean
-Meatballs, Is One Of Korea’s Best-Loved Dishes. It Reheats Well And Is A Favorite For People Who Are Carefully
-Starting To Try Korean Food.</p>
-
-<p>
-Each Bowl Contains: Sweet Potato (Glass) Noodles Mixed With A Stir Fry Of Chicken, Onions, Peppers, Mushrooms, Broccoli, And Carrots. The Sauce Has A Familiar Asian Flavor With A Touch Of South American Flare.</p>
-<p style={{textAlign:'end'}}><strong>12.00</strong></p>
-<p style={{textAlign:'end'}}><Button>Select</Button></p>
+     {MenuEntrees.map(i=>{
+       return(<MenuItem itemName={i.itemName}  itemDescription={i.description} unitPrice={i.unitPrice} onClick={()=>{findIndexOfItem(i.index)}}/>)
+     })}
         </Modal.Body>
       </Modal>
            </div>
