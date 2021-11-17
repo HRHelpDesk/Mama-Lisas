@@ -6,8 +6,8 @@ const TableItem = (props)=>{
 return(
 
     <tr>
-        <td>{props.item}</td>
-    <td>{props.quantity}</td>
+        <td>{props.item}<p>{props.spInstructions}</p></td>
+   
     <td>{'$' + props.total}</td>
     </tr>
 

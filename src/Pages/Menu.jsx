@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import NavigationBar from '../Components/NavigationBar.jsx';
 import CarouselComponent from "../Components/Carousel.jsx";
 import MenuCategories, {MenuEntrees} from "../DataSheets/MenuItems.jsx";
@@ -9,55 +9,142 @@ import MenuModal from "../Components/MenuModal.jsx";
 import CartModal from "../Components/CartModal.jsx";
 import MenuItem from "../Components/MenuItem.jsx";
 const Menu = ()=>{
+
     const [lgShow, setLgShow] = useState(false);
   
+    let selectedItem = {
+      index:'E02',
+      itemName:'place1',
+      unitPrice:0,
+      description:`place3`,
+      addOn:'place4',
+      addOnPrice:'place5'    
+    };
 
-  
+    const Add = (a,b)=>{
+      return(a+b)
+    }
+    const[itemToCart, setItemToCart] = useState({
+      index:selectedItem.index,
+      itemName:selectedItem.itemName,
+      unitPrice:selectedItem.unitPrice.toFixed(2),
+      description:selectedItem.description,
+      addOn:selectedItem.addOn,
+      addOnPrice:selectedItem.addOnPrice   
+      })
   const [modalShow, setModalShow] = useState(false);
   const [cartModalShow, setCartModalShow] = useState(false);
-let selectedItem;
-  let testOBJ = { 
-    item: 'Beef Bugogi',
-  quantity: '1',
-  total: '13.00'
-}
+const [setAddCost, addCost] = useState(0);
+const [totalItemPrice, setTotalItemPrice] = useState(selectedItem.unitPrice)
+const [itemPrice, setItemPrice] = useState(itemToCart.unitPrice);
+const[showAddOn, setShowAddOn] = useState('hide')
+const [cartNumber, setCartNumber] = useState(0)
 
-const findIndexOfItem = (i)=>{
-  const found = MenuEntrees.find(e => e.index == i);
-
-console.log(found);
-
-selectedItem = found
-}
-const addToCart =()=>{
+useEffect(()=>{
+  if(localStorage.getItem('cart-data')){
+let cartArr =[];
+  let cartobj = JSON.parse( localStorage.getItem('cart-data'))
  
 
+  cartobj.forEach(i=>{
+    cartArr.push(i)
+  })
+  setCartNumber(cartArr.length)
+}
+},[0])
+
+
+const findIndexOfItem = (i, b)=>{
+  const found = b.find(e => e.index == i);
+
+
+
+selectedItem = found;
+
+console.log(selectedItem);
+
+setModalShow(true)
+setItemToCart(selectedItem)
+setTotalItemPrice(selectedItem.unitPrice.toFixed(2))
+if(selectedItem.addOn == "na"){
+  setShowAddOn('hide')
+} else{
+  setShowAddOn('show');
+}
+
+}
+
+
+
+
+const addOnToPrice = ()=>{
+
+  if(totalItemPrice == 13){
+  let added = 13 + 1
+ 
+  setTotalItemPrice(added.toFixed(2))
+  } else{ 
+    let added = 13
+    setTotalItemPrice(added.toFixed(2))
+  }
+}
+const recordSpInstructions =(e)=>{
+  cart.specialInstruction = e.value;
+  console.log(cart.specialInstruction)
+}
+let cart ='';
+const addToCart =()=>{
+  let cartArr = []
+  cart =
+  {
+    index:itemToCart.index,
+    itemName:itemToCart.itemName,
+    unitPrice:totalItemPrice,
+    specialInstruction: ''
+  }
   
   if(localStorage.getItem('cart-data') != null){
     let cartobj = JSON.parse( localStorage.getItem('cart-data'))
-   let cartArr = [cartobj]
+   
+
+cartobj.forEach(i=>{
+  cartArr.push(i)
+})
+ 
   
 
     console.log(cartArr)
-    cartArr.forEach(i => {
-      return(
-        alert(`item: ${i.item} quantity: ${i.quantity} total:${i.total}`)
-      )
-      
+    cartArr.push({
+      index:itemToCart.index,
+      itemName:itemToCart.itemName,
+      unitPrice:totalItemPrice,
+      specialInstruction: ''
     });
+setCartNumber(cartArr.length)
+    localStorage.setItem('cart-data', JSON.stringify(cartArr))
+  
+    }
    
  
-  } else {
-    localStorage.setItem('cart-data', JSON.stringify(testOBJ))
+   else {
+     cartArr.push(cart)
+     setCartNumber(cartArr.length)
+    localStorage.setItem('cart-data', JSON.stringify(cartArr))
 
   
   }
 
+  
+
   setModalShow(false)
 }
+
+const [selectedArr, updateSelectedArr] = useState([]);
+
+
     return(
         <div>
-           <NavigationBar onClickBag={() => setCartModalShow(true)}/>
+           <NavigationBar onClickBag={() => setCartModalShow(true)} cartAmmount={cartNumber}/>
            <CarouselComponent/>
            <div style={{textAlign:"center", marginTop:'20px'}}>
                <h1 style={{color:'#e32727'}} className="food-font">MENU</h1>
@@ -67,7 +154,12 @@ const addToCart =()=>{
                
            {   MenuCategories.map(i=>{
                  return(
-                     <MenuCat Name={i.name} img={i.img} onClick={() => setLgShow(true)}/>
+                     <MenuCat Name={i.name} img={i.img} onclick={()=>{
+                      setLgShow(true)
+  
+                     updateSelectedArr(i.onclick, `${i.onclick.length}`)
+                      console.log(selectedArr)
+                     }}/>
 
                  )
              }) }
@@ -77,6 +169,12 @@ const addToCart =()=>{
            <MenuModal
         show={modalShow}
         onHide={()=>{addToCart()}}
+        name={itemToCart.itemName}
+        description={itemToCart.description}
+        ammount={totalItemPrice}
+        adds={showAddOn}
+        onCheckboxClick={addOnToPrice}
+        // spinstructid={()=>{recordSpInstructions(this)}}
       />
 
 <CartModal
@@ -96,9 +194,13 @@ const addToCart =()=>{
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-     {MenuEntrees.map(i=>{
-       return(<MenuItem itemName={i.itemName}  itemDescription={i.description} unitPrice={i.unitPrice} onClick={()=>{findIndexOfItem(i.index)}}/>)
-     })}
+        
+     
+  
+      {selectedArr.map(i=>{
+    let   newNum = i.unitPrice.toFixed(2)
+       return(<MenuItem itemName={i.itemName}  itemDescription={i.description} unitPrice={newNum} onClick={()=>{findIndexOfItem(i.index, selectedArr)}}/>)
+     })} 
         </Modal.Body>
       </Modal>
            </div>

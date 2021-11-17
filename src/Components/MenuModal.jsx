@@ -12,20 +12,19 @@ return(
     >
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
-        Brazilian Bibimbap Bowl
+        {props.name}
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-      
-        <p>
-        This Bowl Of Latin Seoul Is A Fan Fave That Contains A Selection Of Hearty Latin-Korean Flavors. In Order To Enjoy This Dish Properly, You Can Put The Lid On The Bowl And Shake It Around To Fuse The Flavors And Enjoy! Each Bowl Contains: Sticky Chimichurri Rice, Black Beans, Lettuce, Bulgogi Beef Strips, Mango Pico, Kimchi, Korean Cucumber Salad, Diced Sweet Potatoes, A Sprinkle Of Green Onions, Toasted Sesame Seeds, And A Dusting Of Mild Gochugaru Flakes.
-        </p>
-        <div style={{textAlign:"end"}}>
-            <span><strong>Add Egg(+ $1.00)</strong> </span><input type="checkbox"/>
-        </div>
+      {props.description}
+<p></p>
+      <div style={{fontWeight:'bold', textAlign:'end'}} id={props.adds}>
+        <label>Add Sunny Side up egg on top(+ $1.00):<span>&nbsp; </span></label><input onClick={props.onCheckboxClick} type="checkbox" id="addValue"/>
+      </div>
+      <div><textarea onKeyUp={props.spinstructid} style={{width:'100%', height:'100px'}} placeholder="Please enter in any special instructions you might have."></textarea></div>
       </Modal.Body>
       <Modal.Footer>
-          <p><strong>$13.00</strong></p>
+          <p><strong>${props.ammount}</strong></p>
         <Button onClick={props.onHide}>Add to Bag</Button>
       </Modal.Footer>
     </Modal>

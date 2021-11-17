@@ -13,7 +13,7 @@ return(
     <p><strong>{props.itemName}</strong></p>
     <p>{props.itemDescription}</p>
 
-<p style={{textAlign:'end'}}><strong>{props.unitPrice}</strong></p>
+<p style={{textAlign:'end'}}><strong>${props.unitPrice}</strong></p>
 <p style={{textAlign:'end'}}><Button onClick={props.onClick}>Select</Button></p>
 <hr/>
 </div>

@@ -22,3 +22,11 @@ code {
 .food-font{
   font-family: Nuvo;
 }
+
+#hide{
+  display: none;
+}
+
+#show{
+  display: block;
+}

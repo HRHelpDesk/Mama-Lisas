@@ -30,6 +30,7 @@ const NavigationBar = (props)=>{
               alt="Latin Seoul"
             />
              </Nav.Link>
+             <p>{props.cartAmmount}</p>
           </Nav>
         </Container>
         </Navbar>
