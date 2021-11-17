@@ -11,7 +11,7 @@ import MenuItem from "../Components/MenuItem.jsx";
 const Menu = ()=>{
 
     const [lgShow, setLgShow] = useState(false);
-  
+  const[spInstruct, setSpInstruct] = useState('')
     let selectedItem = {
       index:'E02',
       itemName:'place1',
@@ -89,8 +89,9 @@ const addOnToPrice = ()=>{
   }
 }
 const recordSpInstructions =(e)=>{
-  cart.specialInstruction = e.value;
-  console.log(cart.specialInstruction)
+  let st = e.target.value;
+  setSpInstruct(st);
+  console.log(spInstruct)
 }
 let cart ='';
 const addToCart =()=>{
@@ -100,7 +101,7 @@ const addToCart =()=>{
     index:itemToCart.index,
     itemName:itemToCart.itemName,
     unitPrice:totalItemPrice,
-    specialInstruction: ''
+    specialInstruction: "Special Instructions: " + spInstruct
   }
   
   if(localStorage.getItem('cart-data') != null){
@@ -118,7 +119,7 @@ cartobj.forEach(i=>{
       index:itemToCart.index,
       itemName:itemToCart.itemName,
       unitPrice:totalItemPrice,
-      specialInstruction: ''
+      specialInstruction:"Special Instructions: " + spInstruct
     });
 setCartNumber(cartArr.length)
     localStorage.setItem('cart-data', JSON.stringify(cartArr))
@@ -135,7 +136,7 @@ setCartNumber(cartArr.length)
   }
 
   
-
+setSpInstruct('')
   setModalShow(false)
 }
 
@@ -174,7 +175,7 @@ const [selectedArr, updateSelectedArr] = useState([]);
         ammount={totalItemPrice}
         adds={showAddOn}
         onCheckboxClick={addOnToPrice}
-        // spinstructid={()=>{recordSpInstructions(this)}}
+        onSpInstructChange={recordSpInstructions}
       />
 
 <CartModal

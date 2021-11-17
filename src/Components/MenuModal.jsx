@@ -21,7 +21,7 @@ return(
       <div style={{fontWeight:'bold', textAlign:'end'}} id={props.adds}>
         <label>Add Sunny Side up egg on top(+ $1.00):<span>&nbsp; </span></label><input onClick={props.onCheckboxClick} type="checkbox" id="addValue"/>
       </div>
-      <div><textarea onKeyUp={props.spinstructid} style={{width:'100%', height:'100px'}} placeholder="Please enter in any special instructions you might have."></textarea></div>
+      <div><textarea onChange={props.onSpInstructChange} style={{width:'100%', height:'100px'}} placeholder="Please enter in any special instructions you might have."></textarea></div>
       </Modal.Body>
       <Modal.Footer>
           <p><strong>${props.ammount}</strong></p>
