@@ -5,9 +5,13 @@ import MenuCategories, {MenuEntrees} from "../DataSheets/MenuItems.jsx";
 import MenuCat from "../Components/MenuCat.jsx";
 import { Modal, Button } from "react-bootstrap";
 import { useState } from 'react';
+import Axios from 'axios';
 import MenuModal from "../Components/MenuModal.jsx";
 import CartModal from "../Components/CartModal.jsx";
 import MenuItem from "../Components/MenuItem.jsx";
+const url = "http://localhost:3001/menu-entrees"
+
+
 const Menu = ()=>{
 
     const [lgShow, setLgShow] = useState(false);
@@ -24,6 +28,7 @@ const Menu = ()=>{
     const Add = (a,b)=>{
       return(a+b)
     }
+    const [selectedArr, updateSelectedArr] = useState([]);
     const[itemToCart, setItemToCart] = useState({
       index:selectedItem.index,
       itemName:selectedItem.itemName,
@@ -41,6 +46,7 @@ const[showAddOn, setShowAddOn] = useState('hide')
 const [cartNumber, setCartNumber] = useState(0)
 
 useEffect(()=>{
+  getMenuDataAxios()
   if(localStorage.getItem('cart-data')){
 let cartArr =[];
   let cartobj = JSON.parse( localStorage.getItem('cart-data'))
@@ -52,6 +58,22 @@ let cartArr =[];
   setCartNumber(cartArr.length)
 }
 },[0])
+
+const ME = []
+const getMenuDataAxios = async () => {
+
+  const response = await Axios.get(url);
+  console.log(response.data)
+  let json = response.data
+
+  json.forEach(i =>{
+    ME.push(i)  })
+  
+
+updateSelectedArr(ME)
+console.log(selectedArr)
+ 
+  };
 
 
 const findIndexOfItem = (i, b)=>{
@@ -140,7 +162,7 @@ setSpInstruct('')
   setModalShow(false)
 }
 
-const [selectedArr, updateSelectedArr] = useState([]);
+
 
 
     return(
@@ -158,7 +180,7 @@ const [selectedArr, updateSelectedArr] = useState([]);
                      <MenuCat Name={i.name} img={i.img} onclick={()=>{
                       setLgShow(true)
   
-                     updateSelectedArr(i.onclick, `${i.onclick.length}`)
+               
                       console.log(selectedArr)
                      }}/>
 
