@@ -43,6 +43,7 @@ const Menu = ()=>{
       addOn:selectedItem.addOn,
       addOnPrice:selectedItem.addOnPrice   
       })
+      const [isLoading, setIsLoading] = useState(true);
   const [modalShow, setModalShow] = useState(false);
   const [cartModalShow, setCartModalShow] = useState(false);
 const [setAddCost, addCost] = useState(0);
@@ -61,7 +62,39 @@ useEffect(()=>{
  
   getMenuDataAxios('menu-entrees', ME)
   getMenuDataAxios('menu-drinks', MDR)
-  getMenuDataAxios('menu-categories', menuCats)
+  getMenuDataAxios('menu-sides', MSD)
+  getMenuDataAxios('menu-specials', MSP)
+  getMenuDataAxios('menu-desserts', MDS)
+  getMenuDataAxios('menu-categories', menuCats).then(()=>{
+    let meObjIndex = menuCats.findIndex((obj => obj.img == "ME"));
+  
+    menuCats[meObjIndex].img = meImg;
+
+    menuCats[meObjIndex].onclick = ME;
+
+    let spObjIndex = menuCats.findIndex((obj => obj.img == "SP"));
+  
+    menuCats[spObjIndex].img = spImg;
+    menuCats[spObjIndex].onclick = MSP;
+
+    let sideObjIndex = menuCats.findIndex((obj => obj.img == "Side"));
+  
+    menuCats[sideObjIndex].img = sideImg;
+    menuCats[sideObjIndex].onclick = MSD;
+
+    let drObjIndex = menuCats.findIndex((obj => obj.img == "drink"));
+  
+    menuCats[drObjIndex].img = drinkImg;
+    menuCats[drObjIndex].onclick = MDR;
+
+    let dsObjIndex = menuCats.findIndex((obj => obj.img == "dessert"));
+  
+    menuCats[dsObjIndex].img = dessertImg;
+    menuCats[dsObjIndex].onclick = MDS;
+  }).then(()=>{
+    console.log(menuCats)
+    setIsLoading(false)
+  })
  
   if(localStorage.getItem('cart-data')){
 let cartArr =[];
@@ -73,7 +106,7 @@ let cartArr =[];
   })
   setCartNumber(cartArr.length)
 }
-},[0])
+},[])
 
 const getMenuDataAxios = async (e, arr) => {
 
@@ -180,7 +213,9 @@ setSpInstruct('')
 }
 
 
-
+if(isLoading == true){
+  return(<p>Loading...</p>)
+} else {
 
     return(
         <div>
@@ -193,65 +228,18 @@ setSpInstruct('')
            <div className="wrapper">
                
            {   menuCats.map(i=>{
-             if(i.img == 'ME'){
-                 return(
-                     <MenuCat Name={i.name} img={meImg} onclick={()=>{
+             return(
+                     <MenuCat Name={i.name} img={i.img} onclick={()=>{
                       setLgShow(true)
-                      updateSelectedArr(ME)
+                      updateSelectedArr(i.onclick)
                
-                      console.log('i: '+selectedArr)
+                      console.log('i '+selectedArr)
                      }}/>
 
-                 )
-                }
-
-                if(i.img == 'dessert'){
-                  return(
-                      <MenuCat Name={i.name} img={dessertImg} onclick={()=>{
-                       setLgShow(true)
-                       updateSelectedArr(MDR)
-            
-                       console.log(selectedArr)
-                      }}/>
- 
-                  )
-                 }
-
-                 if(i.img == 'SP'){
-                  return(
-                      <MenuCat Name={i.name} img={spImg} onclick={()=>{
-                       setLgShow(true)
-   
+             )
                 
-                       console.log(selectedArr)
-                      }}/>
- 
-                  )
-                 }
 
-                 if(i.img == 'Side'){
-                  return(
-                      <MenuCat Name={i.name} img={sideImg} onclick={()=>{
-                       setLgShow(true)
-   
-                
-                       console.log(selectedArr)
-                      }}/>
- 
-                  )
-                 }
-
-                 if(i.img == 'drink'){
-                  return(
-                      <MenuCat Name={i.name} img={drinkImg} onclick={()=>{
-                       setLgShow(true)
-   
-                
-                       console.log(selectedArr)
-                      }}/>
- 
-                  )
-                 }
+              
              }) }
 
 
@@ -298,5 +286,6 @@ setSpInstruct('')
            
         </div>
     )
+  }
 }
 export default Menu;
