@@ -9,7 +9,13 @@ import Axios from 'axios';
 import MenuModal from "../Components/MenuModal.jsx";
 import CartModal from "../Components/CartModal.jsx";
 import MenuItem from "../Components/MenuItem.jsx";
-const url = "http://localhost:3001/menu-entrees"
+import meImg from '../assets/img/MenuIcons/dish.svg';
+import spImg from '../assets/img/MenuIcons/menubook.svg';
+import sideImg from '../assets/img/MenuIcons/ricebowl.svg';
+import drinkImg from '../assets/img/MenuIcons/soda.svg';
+import dessertImg from '../assets/img/MenuIcons/dessert.svg';
+const apiUrl = "http://localhost:3001/"
+
 
 
 const Menu = ()=>{
@@ -44,9 +50,19 @@ const [totalItemPrice, setTotalItemPrice] = useState(selectedItem.unitPrice)
 const [itemPrice, setItemPrice] = useState(itemToCart.unitPrice);
 const[showAddOn, setShowAddOn] = useState('hide')
 const [cartNumber, setCartNumber] = useState(0)
-
+const [categories, setCatergories] = useState([])
+const [ME, updateME] = useState([])
+const [MSD, updateMSD] = useState([])
+const [MSP, updateMSP] = useState([])
+const [MDR, updateMDR] = useState([])
+const [MDS, updateMDS] = useState([])
+const [menuCats, updateMenuCates] = useState([])
 useEffect(()=>{
-  getMenuDataAxios()
+ 
+  getMenuDataAxios('menu-entrees', ME)
+  getMenuDataAxios('menu-drinks', MDR)
+  getMenuDataAxios('menu-categories', menuCats)
+ 
   if(localStorage.getItem('cart-data')){
 let cartArr =[];
   let cartobj = JSON.parse( localStorage.getItem('cart-data'))
@@ -59,21 +75,22 @@ let cartArr =[];
 }
 },[0])
 
-const ME = []
-const getMenuDataAxios = async () => {
+const getMenuDataAxios = async (e, arr) => {
 
-  const response = await Axios.get(url);
+  const response = await Axios.get(apiUrl+e);
   console.log(response.data)
   let json = response.data
 
   json.forEach(i =>{
-    ME.push(i)  })
+    arr.push(i)  })
   
 
-updateSelectedArr(ME)
-console.log(selectedArr)
+
+console.log(arr)
  
   };
+const [categoriesLoader, setCategoriesLoader] =useState([]);
+
 
 
 const findIndexOfItem = (i, b)=>{
@@ -175,16 +192,66 @@ setSpInstruct('')
            <div style={{textAlign:'center'}}>
            <div className="wrapper">
                
-           {   MenuCategories.map(i=>{
+           {   menuCats.map(i=>{
+             if(i.img == 'ME'){
                  return(
-                     <MenuCat Name={i.name} img={i.img} onclick={()=>{
+                     <MenuCat Name={i.name} img={meImg} onclick={()=>{
                       setLgShow(true)
-  
+                      updateSelectedArr(ME)
                
-                      console.log(selectedArr)
+                      console.log('i: '+selectedArr)
                      }}/>
 
                  )
+                }
+
+                if(i.img == 'dessert'){
+                  return(
+                      <MenuCat Name={i.name} img={dessertImg} onclick={()=>{
+                       setLgShow(true)
+                       updateSelectedArr(MDR)
+            
+                       console.log(selectedArr)
+                      }}/>
+ 
+                  )
+                 }
+
+                 if(i.img == 'SP'){
+                  return(
+                      <MenuCat Name={i.name} img={spImg} onclick={()=>{
+                       setLgShow(true)
+   
+                
+                       console.log(selectedArr)
+                      }}/>
+ 
+                  )
+                 }
+
+                 if(i.img == 'Side'){
+                  return(
+                      <MenuCat Name={i.name} img={sideImg} onclick={()=>{
+                       setLgShow(true)
+   
+                
+                       console.log(selectedArr)
+                      }}/>
+ 
+                  )
+                 }
+
+                 if(i.img == 'drink'){
+                  return(
+                      <MenuCat Name={i.name} img={drinkImg} onclick={()=>{
+                       setLgShow(true)
+   
+                
+                       console.log(selectedArr)
+                      }}/>
+ 
+                  )
+                 }
              }) }
 
 
