@@ -11,7 +11,6 @@ import CartModal from "../Components/CartModal.jsx";
 import MenuItem from "../Components/MenuItem.jsx";
 import meImg from '../assets/img/MenuIcons/dish.svg';
 import spImg from '../assets/img/MenuIcons/menubook.svg';
-import sideImg from '../assets/img/MenuIcons/ricebowl.svg';
 import drinkImg from '../assets/img/MenuIcons/soda.svg';
 import dessertImg from '../assets/img/MenuIcons/dessert.svg';
 const apiUrl = "http://localhost:3001/"
@@ -77,10 +76,6 @@ useEffect(()=>{
     menuCats[spObjIndex].img = spImg;
     menuCats[spObjIndex].onclick = MSP;
 
-    let sideObjIndex = menuCats.findIndex((obj => obj.img == "Side"));
-  
-    menuCats[sideObjIndex].img = sideImg;
-    menuCats[sideObjIndex].onclick = MSD;
 
     let drObjIndex = menuCats.findIndex((obj => obj.img == "drink"));
   
