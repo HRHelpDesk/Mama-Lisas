@@ -1,0 +1,36 @@
+{
+  "files": {
+    "main.css": "/Latin-Seoul/static/css/main.1311b32f.chunk.css",
+    "main.js": "/Latin-Seoul/static/js/main.cd6a5fac.chunk.js",
+    "main.js.map": "/Latin-Seoul/static/js/main.cd6a5fac.chunk.js.map",
+    "runtime-main.js": "/Latin-Seoul/static/js/runtime-main.85d08e0d.js",
+    "runtime-main.js.map": "/Latin-Seoul/static/js/runtime-main.85d08e0d.js.map",
+    "static/css/2.598ff574.chunk.css": "/Latin-Seoul/static/css/2.598ff574.chunk.css",
+    "static/js/2.6bfdf785.chunk.js": "/Latin-Seoul/static/js/2.6bfdf785.chunk.js",
+    "static/js/2.6bfdf785.chunk.js.map": "/Latin-Seoul/static/js/2.6bfdf785.chunk.js.map",
+    "index.html": "/Latin-Seoul/index.html",
+    "static/css/2.598ff574.chunk.css.map": "/Latin-Seoul/static/css/2.598ff574.chunk.css.map",
+    "static/css/main.1311b32f.chunk.css.map": "/Latin-Seoul/static/css/main.1311b32f.chunk.css.map",
+    "static/js/2.6bfdf785.chunk.js.LICENSE.txt": "/Latin-Seoul/static/js/2.6bfdf785.chunk.js.LICENSE.txt",
+    "static/media/index.css": "/Latin-Seoul/static/media/ClarityNuvo-Bold.518306d0.otf",
+    "static/media/FoodDelight.74c2614a.otf": "/Latin-Seoul/static/media/FoodDelight.74c2614a.otf",
+    "static/media/arrowright.eadd193c.svg": "/Latin-Seoul/static/media/arrowright.eadd193c.svg",
+    "static/media/bag.92cfa04d.svg": "/Latin-Seoul/static/media/bag.92cfa04d.svg",
+    "static/media/car1.ac380e2c.jpg": "/Latin-Seoul/static/media/car1.ac380e2c.jpg",
+    "static/media/car2.2977d9bd.jpg": "/Latin-Seoul/static/media/car2.2977d9bd.jpg",
+    "static/media/car3.2b712a35.jpg": "/Latin-Seoul/static/media/car3.2b712a35.jpg",
+    "static/media/dessert.360373d5.svg": "/Latin-Seoul/static/media/dessert.360373d5.svg",
+    "static/media/dish.95f18696.svg": "/Latin-Seoul/static/media/dish.95f18696.svg",
+    "static/media/logo.95d3c27a.png": "/Latin-Seoul/static/media/logo.95d3c27a.png",
+    "static/media/menubook.a50ec605.svg": "/Latin-Seoul/static/media/menubook.a50ec605.svg",
+    "static/media/ricebowl.61f0bd9c.svg": "/Latin-Seoul/static/media/ricebowl.61f0bd9c.svg",
+    "static/media/soda.393ae99d.svg": "/Latin-Seoul/static/media/soda.393ae99d.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.85d08e0d.js",
+    "static/css/2.598ff574.chunk.css",
+    "static/js/2.6bfdf785.chunk.js",
+    "static/css/main.1311b32f.chunk.css",
+    "static/js/main.cd6a5fac.chunk.js"
+  ]
+}
