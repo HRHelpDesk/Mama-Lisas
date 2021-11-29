@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/Latin-Seoul/static/css/main.1311b32f.chunk.css",
-    "main.js": "/Latin-Seoul/static/js/main.1490c650.chunk.js",
-    "main.js.map": "/Latin-Seoul/static/js/main.1490c650.chunk.js.map",
+    "main.js": "/Latin-Seoul/static/js/main.1fa932b1.chunk.js",
+    "main.js.map": "/Latin-Seoul/static/js/main.1fa932b1.chunk.js.map",
     "runtime-main.js": "/Latin-Seoul/static/js/runtime-main.85d08e0d.js",
     "runtime-main.js.map": "/Latin-Seoul/static/js/runtime-main.85d08e0d.js.map",
     "static/css/2.598ff574.chunk.css": "/Latin-Seoul/static/css/2.598ff574.chunk.css",
@@ -31,6 +31,6 @@
     "static/css/2.598ff574.chunk.css",
     "static/js/2.c93b9396.chunk.js",
     "static/css/main.1311b32f.chunk.css",
-    "static/js/main.1490c650.chunk.js"
+    "static/js/main.1fa932b1.chunk.js"
   ]
 }
