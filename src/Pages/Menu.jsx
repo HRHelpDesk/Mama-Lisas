@@ -13,7 +13,7 @@ import meImg from '../assets/img/MenuIcons/dish.svg';
 import spImg from '../assets/img/MenuIcons/menubook.svg';
 import drinkImg from '../assets/img/MenuIcons/soda.svg';
 import dessertImg from '../assets/img/MenuIcons/dessert.svg';
-const apiUrl = "https://mama-lisas-api.herokuapp.com"
+const apiUrl = "https://mama-lisas-api.herokuapp.com/"
 
 
 
