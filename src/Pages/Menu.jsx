@@ -71,11 +71,7 @@ useEffect(()=>{
 
     menuCats[meObjIndex].onclick = ME;
 
-    let spObjIndex = menuCats.findIndex((obj => obj.img == "SP"));
-  
-    menuCats[spObjIndex].img = spImg;
-    menuCats[spObjIndex].onclick = MSP;
-
+   
 
     let drObjIndex = menuCats.findIndex((obj => obj.img == "drink"));
   
