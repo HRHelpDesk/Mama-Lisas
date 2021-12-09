@@ -1,0 +1,212 @@
+/* 
+
+ /* Checkout Form Details */
+.section-two {
+  padding:40px
+}
+.total-container{
+  text-align: end;
+  display: block;
+}
+.checkout-form-body {
+    display: block;
+    padding: 20px;
+   
+  
+  }
+  .cart-section{
+    border: dashed 1px gray;
+    padding: 20px 20px 40px 20px;
+    border-radius: 10px;
+  }
+
+  .checkout-heading{
+    font-weight: bold;
+    color: #B51C27;
+    font-size:'26px';
+  }
+  
+  .checkout-wrapper {
+   
+
+    width: 100%;
+    display: block;
+    justify-content: center;
+   padding: 20px;
+    border: 1px solid black;
+   
+    border-radius: 10px;
+  }
+  
+
+  .checkout-container {
+   
+    padding:15px;
+  }
+  
+  h1 {
+    align-self: center;
+  }
+  
+  .checkout-form {
+    width: 100%;
+  }
+  .checkout-form > * {
+    margin-top: 20px;
+  }
+  .checkout-form input  {
+    width: 100%;
+    min-height: 25px;
+    border: 0;
+    font-size: 1rem;
+    
+   
+    margin-top: 5px;
+    
+    border-radius: 4px;
+    border: black 1px solid
+  }
+
+  .textarea  {
+    width: 100%;
+    min-height: 25px;
+    border: 0;
+    font-size: 1rem;
+    
+   
+    margin-top: 15px;
+    
+    border-radius: 4px;
+    border: black 1px solid
+  }
+  .checkout-form label {
+  
+    font-size: 16px;
+    letter-spacing: 2px;
+    color: black;
+    font-weight: bold;
+  }
+  .checkout-form h1 {
+    font-size: 24px;
+    line-height: 10px;
+    color: #8e2807;
+    letter-spacing: 1px;
+    font-weight: bold;
+  }
+  .checkout-form h1:nth-of-type(2) {
+    margin-top: 10%;
+  }
+  
+  .name {
+    justify-content: space-between;
+    display: flex;
+    width: 100%;
+  }
+  .name div {
+    width: 45%;
+  }
+  
+  .address-info {
+    display: flex;
+    justify-content: space-between;
+  }
+  .address-info div {
+    width: 30%;
+  }
+  
+  .cc-info {
+    display: flex;
+    justify-content: space-between;
+  }
+  .cc-info div {
+    width: 45%;
+  }
+  
+  .btns {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+  .btns button {
+    margin: 3px 0;
+    height: 30px;
+    width: 40%;
+    color: #cfc9e1;
+    background-color: #4a3b76;
+    text-transform: uppercase;
+    border: 0;
+    border-radius: 0.3rem;
+    letter-spacing: 2px;
+  }
+  .btns button:hover {
+    animation-name: btn-hov;
+    animation-duration: 550ms;
+    animation-fill-mode: forwards;
+  }
+  
+  @keyframes btn-hov {
+    100% {
+      background-color: #cfc9e1;
+      color: #4a3b76;
+      transform: scale(1.05);
+    }
+  }
+
+  
+  @media (max-width: 736px) {
+    .wrapper {
+      width: 100%;
+    }
+  
+    .container {
+      width: 100%;
+    }
+  
+    .btns {
+      align-items: center;
+    }
+    .btns button {
+      width: 50%;
+    }
+  
+    form h1 {
+      text-align: center;
+    }
+  
+    .name,
+  .address-info,
+  .cc-info {
+      flex-direction: column;
+      width: 100%;
+      justify-content: space-between;
+    }
+    .name div,
+  .address-info div,
+  .cc-info div {
+      align-items: center;
+      flex-direction: column;
+      width: 100%;
+      display: flex;
+    }
+  
+    .street,
+  .cc-num {
+      text-align: center;
+    }
+  
+   .checkout-form input {
+      margin: 5px 0;
+      min-height: 30px;
+    }
+  } 
+
+  .FormRow {
+    border: 1px solid grey;
+    border-radius: 10px;
+    height: 50px;
+    
+    margin-bottom: 20px;
+    padding: 10px;
+  }
+
+ 

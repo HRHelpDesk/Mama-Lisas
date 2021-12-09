@@ -11,8 +11,8 @@ const NavigationBar = (props)=>{
           <Navbar.Brand href="/">
             <img
               src={logo}
-              width="70"
-              height="70"
+              width="175"
+              height="auto"
               className="d-inline-block align-top"
               alt="Latin Seoul"
             />

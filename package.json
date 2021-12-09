@@ -4,18 +4,26 @@
   "private": true,
   "homepage": "https://masonmerrell22.github.io/Mama-Lisas/",
   "dependencies": {
+    "@serialport/parser-readline": "^9.2.4",
+    "@stripe/react-stripe-js": "^1.6.0",
+    "@stripe/stripe-js": "^1.21.2",
     "@testing-library/jest-dom": "^5.15.0",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
     "animate.css": "^4.1.1",
     "axios": "^0.24.0",
     "bootstrap": "^5.1.3",
+    "google-map-react": "^2.1.10",
     "lodash": "^4.17.21",
     "react": "^17.0.2",
     "react-bootstrap": "^2.0.2",
     "react-dom": "^17.0.2",
     "react-router-dom": "^6.0.1",
     "react-scripts": "4.0.3",
+    "react-stripe-checkout": "^2.6.3",
+    "serialport": "^9.2.8",
+    "smartcard": "^1.0.46",
+    "stripe": "^8.191.0",
     "web-vitals": "^1.1.2"
   },
   "scripts": {
@@ -45,6 +53,8 @@
     ]
   },
   "devDependencies": {
+    "@iconify/icons-mdi": "^1.1.42",
+    "@iconify/react": "^3.1.0",
     "gh-pages": "^3.2.3"
   }
 }

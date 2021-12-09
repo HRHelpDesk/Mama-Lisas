@@ -25,7 +25,7 @@ return(
       </Modal.Body>
       <Modal.Footer>
           <p><strong>${props.ammount}</strong></p>
-        <Button onClick={props.onHide}>Add to Bag</Button>
+        <Button onClick={props.onAdd}>Add to Bag</Button>
       </Modal.Footer>
     </Modal>
 )
