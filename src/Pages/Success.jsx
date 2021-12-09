@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Map from '../Components/Map';
 import logo from '../assets/img/logo.png'
 
@@ -8,12 +8,12 @@ const Success = ()=>{
         lat: 35.554470,
         lng: -100.971110,
       }
-
+const [cartData, setCartData] = useState('')
 const emailAdress= "Masonmerrell@hotmail.com"
  const confirmationNo = "WCD5X7";
  const pickupTime = "35-40 mins"
     useEffect(()=>{
-
+       setCartData()
     })
 
 
