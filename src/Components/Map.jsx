@@ -4,6 +4,7 @@ import logo from '../assets/img/logo.png'
 import { Icon } from '@iconify/react'
 import locationIcon from '@iconify/icons-mdi/map-marker'
 import '../assets/css/Map.css'
+import { AppleMaps } from 'react-apple-mapkitjs'
 const Map = ({ location, zoomLevel })=>{
 
     return(

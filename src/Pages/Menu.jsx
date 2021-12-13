@@ -14,6 +14,8 @@ import drinkImg from '../assets/img/MenuIcons/soda.svg';
 import dessertImg from '../assets/img/MenuIcons/dessert.svg';
 import TableItem from "../Components/TableItem.jsx";
 import {useNavigate} from 'react-router-dom';
+import RadioButtons from "../Components/RadioButtons.jsx";
+import { add } from "lodash";
 const apiUrl = "https://mama-lisas-api.herokuapp.com/"
 const port = "http://localhost:3001/"
 
@@ -28,8 +30,8 @@ const Menu = ()=>{
     itemName:'place1',
     unitPrice:0,
     description:`place3`,
-    addOn:'place4',
-    addOnPrice:'place5'    
+    addOn:[],
+   
   };
   const[itemToCart, setItemToCart] = useState({
     id: selectedItem.id,
@@ -37,8 +39,8 @@ const Menu = ()=>{
     itemName:selectedItem.itemName,
     unitPrice:selectedItem.unitPrice.toFixed(2),
     description:selectedItem.description,
-    addOn:selectedItem.addOn,
-    addOnPrice:selectedItem.addOnPrice   
+    addOn: selectedItem.addOn,
+      
     })
 
 
@@ -67,7 +69,9 @@ let unitPriceArr = []
 const [lgShow, setLgShow] = useState(false);
 const[spInstruct, setSpInstruct] = useState('')
 const [totalItemPrice, setTotalItemPrice] = useState(selectedItem.unitPrice)
-
+const [addOnDiv, setAddonDiv] = useState(()=>{
+  return(<p>Mason</p>)
+})
 
 //End Variables
 
@@ -127,37 +131,91 @@ const [totalItemPrice, setTotalItemPrice] = useState(selectedItem.unitPrice)
   );
 
   // Load Api Data
+  let addOnArr = []
   const getMenuDataAxios = async (e, arr) => {
 
     const response = await Axios.get(apiUrl+e);
     console.log(response.data)
     let json = response.data
-  
+    
     json.forEach(i =>{
       arr.push(i)  })
     
+      arr.sort(function(a, b){
+        if(a.index < b.index) { return -1; }
+        if(a.index > b.index) { return 1; }
+        return 0;
+    })
   
-  
-  console.log(arr)
-   
+    console.log(arr)
     };
 
- 
+    let changedPrice;
+     
 // Find Array Item
     const findIndexOfItem = (i, b)=>{
       const found = b.find(e => e.index == i);
+      console.log(found)
       selectedItem = found;
+      changedPrice = found.unitPrice
+      console.log(changedPrice)
+      setTotalItemPrice(selectedItem.unitPrice.toFixed(2))
+     
+      let e = selectedItem.addOn;
+    
+   
       console.log(selectedItem);
+      
+      addOnArr= JSON.parse(e)
       setModalShow(true)
       setItemToCart(selectedItem)
-      setTotalItemPrice(selectedItem.unitPrice.toFixed(2))
-      if(selectedItem.addOn == "na"){
-        setShowAddOn('hide')
-      } else{
-        setShowAddOn('show');
+    console.log(addOnArr.length)
+    
+     
+      
+
+     if(addOnArr.length >1){
+       
+            setAddonDiv( <RadioButtons
+              onClick1={()=>addOnWithRadioButtons(addOnArr[0].addOnPrice, selectedItem.unitPrice)}
+              onClick2={()=>addOnWithRadioButtons(addOnArr[1].addOnPrice,selectedItem.unitPrice)}
+              onClick3={()=>addOnWithRadioButtons(Number(addOnArr[0].addOnPrice)+ Number(addOnArr[1].addOnPrice), selectedItem.unitPrice)}
+              onClick4={()=>addOnWithRadioButtons(0, selectedItem.unitPrice)}
+              label1={addOnArr[0].addOnItem}
+              label2={addOnArr[1].addOnItem}
+              label3="Both (+ $5.00)"
+              label4="None"
+            
+            />)
+     } else{
+
+   
+        setAddonDiv(
+          addOnArr.map(i=>{
+            console.log(i.addOnItem )
+            
+            if (i.addOnItem !== "na"){
+            return(<div style={{fontWeight:'bold', textAlign:'end'}} >
+            <label style={{fontSize:'16px'}}>{i.addOnItem}<span>&nbsp; </span></label><input onClick={()=>{addOnToPrice(Number(i.addOnPrice), selectedItem.unitPrice)}} type="checkbox" id="addValue"/>
+            </div>)
+          }else {
+            return (<p></p>)
+          }
+        } 
+          )
+        )
       }
       
       }
+
+// Add on to price with Raido Buttons
+
+function addOnWithRadioButtons (a, b ){
+  let num = Number(a) + Number(b);
+  setTotalItemPrice(num.toFixed(2))
+  
+
+}
 
 // Create Random ID
 
@@ -172,16 +230,51 @@ charactersLength));
  return result;
 }
 //Add on function to update price
-const addOnToPrice = ()=>{
 
-  if(totalItemPrice == 13){
-  let added = 13 + 1
- 
-  setTotalItemPrice(added.toFixed(2))
-  } else{ 
-    let added = 13
+const addOnToPrice = (a, b)=>{
+  const startingPrice = b
+
+  
+  console.log(changedPrice)
+  console.log(startingPrice)
+  
+let added;
+let num = Number(b)
+ if(startingPrice === changedPrice){
+  if (a === -3){
+    added = num - 3.5
+    changedPrice = added
     setTotalItemPrice(added.toFixed(2))
-  }
+ } 
+
+ else if (a === 25){
+   added = num + 2.5
+   changedPrice = added
+   console.log(added)
+   setTotalItemPrice(added.toFixed(2))
+} 
+ else if (a === -4){
+   added = num - 4
+   changedPrice = added
+   setTotalItemPrice(added.toFixed(2))
+} else  {
+ console.log('this')
+ added = num + a
+ changedPrice  =num + a
+ 
+console.log(changedPrice)
+console.log(startingPrice)
+setTotalItemPrice(added.toFixed(2))
+}
+  } else if (startingPrice !== changedPrice) { 
+ 
+  
+  added = num
+  changedPrice = added
+  setTotalItemPrice(added.toFixed(2))
+ 
+
+}
 }
 const recordSpInstructions =(e)=>{
   let st = e.target.value;
@@ -268,7 +361,9 @@ useEffect(()=>{
   
     menuCats[meObjIndex].img = meImg;
 
+   
     menuCats[meObjIndex].onclick = ME;
+    
 
    
 
@@ -355,7 +450,7 @@ if(isLoading == true){
                       setLgShow(true)
                       updateSelectedArr(i.onclick)
                
-                      console.log('i '+selectedArr)
+                      console.log(selectedArr)
                      }}/>
 
              )
@@ -367,14 +462,16 @@ if(isLoading == true){
 {/* <button onClick={OpenRegAxios}>Test</button> */}
            </div>
            <MenuModal
+           size="lg"
         show={modalShow}
-        onHide={()=>{setModalShow(false)}}
+        onHide={()=>{setModalShow(false); setShowAddOn('hide')}}
         onAdd={()=>{addToCart()}}
         name={itemToCart.itemName}
+        addOn={addOnDiv}
         description={itemToCart.description}
         ammount={totalItemPrice}
-        adds={showAddOn}
-        onCheckboxClick={addOnToPrice}
+        
+  
         onSpInstructChange={recordSpInstructions}
       />
 
@@ -401,7 +498,9 @@ if(isLoading == true){
         
      
   
-      {selectedArr.map(i=>{
+      {
+       
+        selectedArr.map(i=>{
     let   newNum = i.unitPrice.toFixed(2)
        return(<MenuItem itemName={i.itemName}  itemDescription={i.description} unitPrice={newNum} onClick={()=>{setLgShow(false); findIndexOfItem(i.index, selectedArr)}}/>)
      })} 

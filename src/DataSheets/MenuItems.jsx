@@ -14,10 +14,17 @@ const MenuEntrees = [
         unitPrice:13.00,
         description:`This Bowl Of Latin Seoul Is A Fan Fave That Contains A Selection Of Hearty Latin-Korean Flavors. In Order To Enjoy This Dish Properly, You Can Put The Lid On The Bowl And Shake It Around To Fuse The Flavors And Enjoy!
         Each Bowl Contains: Sticky Chimichurri Rice, Black Beans, Lettuce, Bulgogi Beef Strips, Mango Pico, Kimchi, Korean Cucumber Salad, Diced Sweet Potatoes, A Sprinkle Of Green Onions, Toasted Sesame Seeds, And A Dusting Of Mild Gochugaru Flakes.`,
-        addOn:'Add A Sunny Side Up Egg On Top For An Extra',
-        addOnPrice:1.00    
+        addOn:[
+            {
+                addonItem:'Add A Sunny Side Up Egg On Top For An Extra',
+                addOnPrice:2
+            }
+        ],
+        
     },
   
+  
+
     {
         index:'E02',
         itemName:'Bulgogi Bowl',
