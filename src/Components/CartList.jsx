@@ -11,6 +11,7 @@ const CartListItem = (props)=>{
         <p className="item-name">{props.itemName}</p>
         <p className="sp-inst-heading">SPECIAL INSTRUCTIONS</p>
         <p className="item-description">{props.specialInstruction}</p>
+        <p className="item-description">{props.addOnSp}</p>
         </div>
 
         <div className='product-cost'>

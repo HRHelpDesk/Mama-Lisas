@@ -243,7 +243,7 @@ function getSum(ary){
             key={idx}
             id={`radio-${idx}`}
             type="radio"
-            variant={idx % 2 ? 'outline-primary' : 'outline-primary'}
+            variant={idx % 2 ? 'outline-danger' : 'outline-danger'}
             name="radio"
             value={radio.value}
             checked={radioValue === radio.value}
@@ -269,7 +269,7 @@ function getSum(ary){
           <p className="checkout-heading">ORDER DETAILS</p>
           <hr></hr>
           {orderData.map(a=>{
-              return( <CartListItem  itemName={a.itemName} specialInstruction={a.specialInstruction} unitPrice={a.unitPrice}/>) })}
+              return( <CartListItem  itemName={a.itemName} specialInstruction={a.specialInstruction} addOnSp={a.addOnSP} unitPrice={a.unitPrice}/>) })}
       </div>
       <div className="total-container">
       

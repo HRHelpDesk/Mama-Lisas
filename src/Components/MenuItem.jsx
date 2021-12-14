@@ -14,7 +14,7 @@ return(
     <p>{props.itemDescription}</p>
 
 <p style={{textAlign:'end'}}><strong>${props.unitPrice}</strong></p>
-<p style={{textAlign:'end'}}><Button onClick={props.onClick}>Select</Button></p>
+<p style={{textAlign:'end'}}><Button className="menu-list-btn" onClick={props.onClick}>Select</Button></p>
 <hr/>
 </div>
 )

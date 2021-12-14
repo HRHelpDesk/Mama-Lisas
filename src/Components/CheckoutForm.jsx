@@ -17,7 +17,7 @@ const CheckoutForm = (props,{ price, onSuccessfulCheckout }) => {
 
     const sendText = async () => {
 
-        const response = await axios.post("http://localhost:3001/send-email",{
+        const response = await axios.post("https://mama-lisas-api.herokuapp.com/send-email",{
           name: props.emailName,
           email: props.emailAddress,
           confirmation: props.emailConfirmation,
@@ -47,7 +47,7 @@ const CheckoutForm = (props,{ price, onSuccessfulCheckout }) => {
         if(!error) {
             try {
                 const {id} = paymentMethod
-                const response = await axios.post("http://localhost:3001/payment", {
+                const response = await axios.post("https://mama-lisas-api.herokuapp.com/payment", {
                     amount: props.price,
                     id
                 })
@@ -83,13 +83,14 @@ const CheckoutForm = (props,{ price, onSuccessfulCheckout }) => {
           
             </div>
         </fieldset>
+        <p style={{fontSize:'small'}}>Powered by <b>STRIPE</b></p>
         <div className="btns">
         <button disabled={enableDis} >Pay</button>
         </div>
     </form>
     :
    <div>
-       <h2>Success! Order total was: {props.ot}</h2>
+      
    </div> 
     }
         

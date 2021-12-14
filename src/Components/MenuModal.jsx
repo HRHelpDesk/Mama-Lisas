@@ -26,7 +26,7 @@ return(
       </Modal.Body>
       <Modal.Footer>
           <p><strong>${props.ammount}</strong></p>
-        <Button onClick={props.onAdd}>Add to Bag</Button>
+        <Button className="menu-list-btn" style={{backgroundColor:'#B51C27', borderColor:'#B51C27'}} onClick={props.onAdd}>Add to Bag</Button>
       </Modal.Footer>
     </Modal>
 )

@@ -63,11 +63,12 @@ const [menuCats, updateMenuCates] = useState([])
 const[finalTotal, setFinalTotal] = useState(0)
 const [selectedArr, updateSelectedArr] = useState([]);
 const [itemPrice, setItemPrice] = useState(itemToCart.unitPrice);
-let cartDataArr = JSON.parse(localStorage.getItem('cart-data'));
+let cartDataArr = localStorage.getItem('cart-data') ? JSON.parse(localStorage.getItem('cart-data')) : JSON.parse("[]")
 let cart ='';
 let unitPriceArr = []
 const [lgShow, setLgShow] = useState(false);
 const[spInstruct, setSpInstruct] = useState('')
+const[recordAddon, setRecordAddOn] = useState('')
 const [totalItemPrice, setTotalItemPrice] = useState(selectedItem.unitPrice)
 const [addOnDiv, setAddonDiv] = useState(()=>{
   return(<p>Mason</p>)
@@ -102,7 +103,7 @@ const [addOnDiv, setAddonDiv] = useState(()=>{
         cartDataArr.map(i=>{
           return(
             
-          <TableItem item={i.itemName}  total={i.unitPrice} spInstructions={i.specialInstruction} removeItemOnClick={()=>{removeItem(i.id)}}/>
+          <TableItem item={i.itemName}  total={i.unitPrice} spInstructions={i.specialInstruction} addOnSp={i.addOnSP} removeItemOnClick={()=>{removeItem(i.id)}}/>
           )
          })
       )
@@ -120,12 +121,13 @@ const [addOnDiv, setAddonDiv] = useState(()=>{
    let unitPriceIntArr = toNumArr(unitPriceArr)
    console.log(unitPriceArr)
    setFinalTotal(getSum(unitPriceIntArr))
+   setCartNumber(cartDataArr.length)
   }
   let [loader, setLoader] = useState(
     cartDataArr.map(i=>{
       return(
         
-      <TableItem item={i.itemName}  total={i.unitPrice} spInstructions={i.specialInstruction} removeItemOnClick={removeItem}/>
+      <TableItem item={i.itemName}  total={i.unitPrice} spInstructions={i.specialInstruction} addOnSp={i.addOnSP} removeItemOnClick={()=>{removeItem(i.id)}}/>
       )
      })
   );
@@ -162,11 +164,7 @@ const [addOnDiv, setAddonDiv] = useState(()=>{
       setTotalItemPrice(selectedItem.unitPrice.toFixed(2))
      
       let e = selectedItem.addOn;
-    
-   
-      console.log(selectedItem);
-      
-      addOnArr= JSON.parse(e)
+     
       setModalShow(true)
       setItemToCart(selectedItem)
     console.log(addOnArr.length)
@@ -175,7 +173,7 @@ const [addOnDiv, setAddonDiv] = useState(()=>{
       
 
      if(addOnArr.length >1){
-       
+      addOnArr= JSON.parse(e)
             setAddonDiv( <RadioButtons
               onClick1={()=>addOnWithRadioButtons(addOnArr[0].addOnPrice, selectedItem.unitPrice)}
               onClick2={()=>addOnWithRadioButtons(addOnArr[1].addOnPrice,selectedItem.unitPrice)}
@@ -196,7 +194,7 @@ const [addOnDiv, setAddonDiv] = useState(()=>{
             
             if (i.addOnItem !== "na"){
             return(<div style={{fontWeight:'bold', textAlign:'end'}} >
-            <label style={{fontSize:'16px'}}>{i.addOnItem}<span>&nbsp; </span></label><input onClick={()=>{addOnToPrice(Number(i.addOnPrice), selectedItem.unitPrice)}} type="checkbox" id="addValue"/>
+            <label style={{fontSize:'16px'}}>{i.addOnItem}<span>&nbsp; </span></label><input value={i.addOnItem} onChange={(e)=>{checkVal(e)}} onClick={()=>{addOnToPrice(Number(i.addOnPrice), selectedItem.unitPrice)}} type="checkbox" id="addValue"/>
             </div>)
           }else {
             return (<p></p>)
@@ -206,6 +204,19 @@ const [addOnDiv, setAddonDiv] = useState(()=>{
         )
       }
       
+      }
+
+      function checkVal (e) {
+    
+          let isChecked = e.target.checked;
+          let val = e.target.value
+          // do whatever you want with isChecked value
+         if(isChecked) {
+        console.log(isChecked)
+        setRecordAddOn(val)
+         } else {
+          setRecordAddOn("No Adds")
+         }
       }
 
 // Add on to price with Raido Buttons
@@ -231,7 +242,7 @@ charactersLength));
 }
 //Add on function to update price
 
-const addOnToPrice = (a, b)=>{
+const addOnToPrice = (a, b, event)=>{
   const startingPrice = b
 
   
@@ -292,7 +303,8 @@ cartDataArr=[];
     index:itemToCart.index,
     itemName:itemToCart.itemName,
     unitPrice:totalItemPrice,
-    specialInstruction: spInstruct
+    specialInstruction: spInstruct,
+    addOnSP: recordAddon
   }
   
   if(localStorage.getItem('cart-data') != null){
@@ -311,7 +323,8 @@ cartobj.forEach(i=>{
       index:itemToCart.index,
       itemName:itemToCart.itemName,
       unitPrice:totalItemPrice,
-      specialInstruction:spInstruct
+      specialInstruction:spInstruct,
+      addOnSP: recordAddon
     });
 
     
@@ -335,12 +348,13 @@ setCartNumber(cartDataArr.length)
     setLoader(cartDataArr.map(i=>{
       return(
         
-      <TableItem item={i.itemName}  total={i.unitPrice} spInstructions={i.specialInstruction} removeItemOnClick={removeItem}/>
+      <TableItem item={i.itemName} addOnSp={i.addOnSP}  total={i.unitPrice} spInstructions={i.specialInstruction} removeItemOnClick={()=>{removeItem(i.id)}}/>
       )
      })
       )
   }
 setSpInstruct('')
+setRecordAddOn('')
   setModalShow(false)
 
 }
@@ -398,7 +412,7 @@ if(localStorage.getItem('cart-data')){
   setLoader(cartDataArr.map(i=>{
       return(
         
-      <TableItem item={i.itemName}  total={i.unitPrice} spInstructions={i.specialInstruction} removeItemOnClick={removeItem(i.id)}/>
+      <TableItem item={i.itemName} addOnSp={i.addOnSP}  total={i.unitPrice} spInstructions={i.specialInstruction} removeItemOnClick={()=>{removeItem(i.id)}}/>
       )
      }));
 let unitPriceArr = []
@@ -433,7 +447,7 @@ if(isLoading == true){
            <NavigationBar onClickBag={() => {setCartModalShow(true);  setLoader(cartDataArr.map(i=>{
       return(
         
-      <TableItem item={i.itemName}  total={i.unitPrice} spInstructions={i.specialInstruction} removeItemOnClick={removeItem}/>
+      <TableItem item={i.itemName} addOnSp={i.addOnSP}  total={i.unitPrice} spInstructions={i.specialInstruction} removeItemOnClick={()=>{removeItem(i.id)}}/>
       )
      })
       )}} cartAmmount={cartNumber}/>

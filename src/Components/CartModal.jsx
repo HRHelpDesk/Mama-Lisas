@@ -58,7 +58,7 @@ props.cartLoader
       </Modal.Body>
       <Modal.Footer>
           
-        <Button onClick={props.onComplete}>Complete Purchase</Button>
+        <Button className="menu-list-btn" onClick={props.onComplete}>Complete Purchase</Button>
       </Modal.Footer>
     </Modal>
 )
