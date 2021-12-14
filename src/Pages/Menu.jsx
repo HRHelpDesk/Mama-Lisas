@@ -175,14 +175,15 @@ const [addOnDiv, setAddonDiv] = useState(()=>{
      if(addOnArr.length >1){
       
             setAddonDiv( <RadioButtons
-              onClick1={()=>addOnWithRadioButtons(addOnArr[0].addOnPrice, selectedItem.unitPrice)}
-              onClick2={()=>addOnWithRadioButtons(addOnArr[1].addOnPrice,selectedItem.unitPrice)}
-              onClick3={()=>addOnWithRadioButtons(Number(addOnArr[0].addOnPrice)+ Number(addOnArr[1].addOnPrice), selectedItem.unitPrice)}
-              onClick4={()=>addOnWithRadioButtons(0, selectedItem.unitPrice)}
+              onClick1={()=>{addOnWithRadioButtons(addOnArr[0].addOnPrice, selectedItem.unitPrice); checkValRadio(addOnArr[0].addOnItem)}}
+              onClick2={()=>{addOnWithRadioButtons(addOnArr[1].addOnPrice,selectedItem.unitPrice); checkValRadio(addOnArr[1].addOnItem)}}
+              onClick3={()=>{addOnWithRadioButtons(Number(addOnArr[0].addOnPrice)+ Number(addOnArr[1].addOnPrice), selectedItem.unitPrice); checkValRadio("Both (+ $5.00)")}}
+              onClick4={()=>{addOnWithRadioButtons(0, selectedItem.unitPrice); checkValRadio("None") }}
               label1={addOnArr[0].addOnItem}
               label2={addOnArr[1].addOnItem}
               label3="Both (+ $5.00)"
               label4="None"
+              
             
             />)
      } else{
@@ -218,6 +219,17 @@ const [addOnDiv, setAddonDiv] = useState(()=>{
           setRecordAddOn("No Adds")
          }
       }
+
+      function checkValRadio (e) {
+    
+       
+        let val = e
+        // do whatever you want with isChecked value
+      console.log(val)
+      setRecordAddOn(val)
+       } 
+     
+    
 
 // Add on to price with Raido Buttons
 
