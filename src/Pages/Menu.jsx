@@ -164,7 +164,7 @@ const [addOnDiv, setAddonDiv] = useState(()=>{
       setTotalItemPrice(selectedItem.unitPrice.toFixed(2))
      
       let e = selectedItem.addOn;
-     
+      addOnArr= JSON.parse(e)
       setModalShow(true)
       setItemToCart(selectedItem)
     console.log(addOnArr.length)
@@ -173,7 +173,7 @@ const [addOnDiv, setAddonDiv] = useState(()=>{
       
 
      if(addOnArr.length >1){
-      addOnArr= JSON.parse(e)
+      
             setAddonDiv( <RadioButtons
               onClick1={()=>addOnWithRadioButtons(addOnArr[0].addOnPrice, selectedItem.unitPrice)}
               onClick2={()=>addOnWithRadioButtons(addOnArr[1].addOnPrice,selectedItem.unitPrice)}
@@ -398,11 +398,12 @@ useEffect(()=>{
   if(localStorage.getItem('cart-data')){
 
   let cartobj = JSON.parse( localStorage.getItem('cart-data'))
- 
+ cartDataArr = cartobj
 
-  cartobj.forEach(i=>{
-    cartDataArr.push(i)
-  })
+  // cartobj.forEach(i=>{
+  //   cartDataArr.push(i)
+  // })
+  console.log(cartDataArr.length)
   setCartNumber(cartDataArr.length)
 }
 
