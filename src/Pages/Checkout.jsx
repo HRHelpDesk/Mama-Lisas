@@ -347,10 +347,13 @@ function getSum(ary){
                 options={CARD_OPTIONS}
                 emailName={orderPersonData.fName}
                 emailAddress={orderPersonData.email}
+                emailAddressAddress={`${orderPersonData.address} ${orderPersonData.city}, ${orderPersonData.state} ${orderPersonData.zip}`}
                 emailConfirmation={orderPersonData.orderNo}
                 emailOrderData={JSON.stringify(orderData)}
                 emailPickuporDeliveryTime={'30-45 mins'}
+                pickupOrDelivery={pickUpOrDeliverySetting}
                 emailTotal={orderTotal.toFixed(2)}
+                deliveryAddress={`${orderPersonData.address} ${orderPersonData.city}, ${orderPersonData.state} ${orderPersonData.zip}`}
                 />
 
          </div>

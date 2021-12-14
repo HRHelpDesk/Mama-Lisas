@@ -3,6 +3,7 @@ import { CardElement, useStripe, useElements, PaymentElement, PaymentRequestButt
 import axios from "axios";
 import '../assets/css/Checkout.css'
 import {useNavigate} from 'react-router-dom';
+import { pick } from 'lodash';
 
 
 
@@ -15,11 +16,12 @@ const CheckoutForm = (props,{ price, onSuccessfulCheckout }) => {
     const stripe = useStripe()
     const elements = useElements()
 
-    const sendText = async () => {
+    const sendEmailPickup = async () => {
 
-        const response = await axios.post("https://mama-lisas-api.herokuapp.com/send-email",{
+        const response = await axios.post("https://mama-lisas-api.herokuapp.com/send-email-pickup",{
           name: props.emailName,
           email: props.emailAddress,
+          address:props.emailAddressAddress,
           confirmation: props.emailConfirmation,
           order: props.emailOrderData,
           pickuporDeliveryTime:props.emailPickuporDeliveryTime,
@@ -31,6 +33,38 @@ const CheckoutForm = (props,{ price, onSuccessfulCheckout }) => {
         
        
         };
+
+
+        const sendEmailDelivery = async () => {
+
+            const response = await axios.post("https://mama-lisas-api.herokuapp.com/send-email-delivery",{
+              name: props.emailName,
+              email: props.emailAddress,
+              address:props.emailAddressAddress,
+              confirmation: props.emailConfirmation,
+              order: props.emailOrderData,
+              pickuporDeliveryTime:props.emailPickuporDeliveryTime,
+              total: props.emailTotal,
+          
+          
+            });
+            console.log(response.data)
+            
+           
+            };
+
+       
+
+        const orderData = {
+            name: props.emailName,
+          email: props.emailAddress,
+          confirmation: props.emailConfirmation,
+          order: props.emailOrderData,
+          pickupOrDelivery: props.pickupOrDelivery,
+          pickuporDeliveryTime:props.emailPickuporDeliveryTime,
+          total: props.emailTotal,
+          deliveryAddress:props.deliveryAddress
+        }
    
     const handleSubmit = async (e) => {
         if(props.city != "pampa"){
@@ -49,14 +83,24 @@ const CheckoutForm = (props,{ price, onSuccessfulCheckout }) => {
                 const {id} = paymentMethod
                 const response = await axios.post("https://mama-lisas-api.herokuapp.com/payment", {
                     amount: props.price,
-                    id
+                    id,
+                    confNumber: orderData.confirmation
                 })
     
                 if(response.data.success) {
+                    console.log(orderData.pickupOrDelivery)
+                    if(orderData.pickupOrDelivery === "Pick-up"){
+                                            
                     console.log("Successful payment")
-                    sendText()
+                    sendEmailPickup()
+                    localStorage.setItem('cart-person', JSON.stringify(orderData))
                     navigate('/success')
-                    
+                                        } else{
+                                            console.log("Successful payment")
+                                            sendEmailDelivery()
+                                            localStorage.setItem('cart-person', JSON.stringify(orderData))
+                                            navigate('/deliverysuccess')
+                                        }
                     
                  
                    
