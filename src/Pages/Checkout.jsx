@@ -9,6 +9,21 @@ import '../assets/css/Checkout.css'
 import axios from "axios";
 import logo from '../assets/img/logo.png'
 const Checkout = () => {
+  const addTotalCart = (a,b,c)=>{
+    console.log(Number(a) + Number(b) + Number(c))
+    return Number(a) + Number(b) + Number(c)
+  }
+  const itemCostArr = [];
+  const[orderTotal, setOrderTotal]=useState(getSum(itemCostArr))
+  const [deliveryCharge, setDeliveryCharge] = useState(4);
+const[tip , setSetTip] = useState(0)
+  const [totalDeliveryOrder, setTotalDeliveryOrder] = useState(0)
+
+function setTip (e) {
+ let val = e.target.value;
+ setSetTip(Number(val))
+ console.log(val)
+}
 
 
 
@@ -153,8 +168,6 @@ const recordInputValue =(event)=>{
 console.log(orderPersonData)
   
 }
-
-
     const [orderTotalNum, setOrderTotalNum] = useState();
     let orderTotalstr ;
     const CARD_OPTIONS = {
@@ -181,7 +194,7 @@ console.log(orderPersonData)
   
 
 const orderData= JSON.parse(localStorage.getItem('cart-data'))
-const itemCostArr = [];
+
 let finalNumStr;
 useEffect(()=>{
   orderData.forEach(e => {
@@ -190,15 +203,10 @@ useEffect(()=>{
       setOrderTotal(getSum(itemCostArr))
 
   });
-if (orderTotal % 1 != 0){
-   orderTotalstr = String(orderTotal) + '0';
-} else{
-  orderTotalstr = String(orderTotal) + '00';
-}
-    finalNumStr = orderTotalstr.replace('.','');
-   let orderToNum = Number(finalNumStr)
-   setOrderTotalNum(orderToNum);
 
+   let orderToNum = Number(totalDeliveryOrder) * 100
+   setOrderTotalNum(orderToNum);
+   setTotalDeliveryOrder(addTotalCart(orderTotal, deliveryCharge, tip)) 
   console.log(orderToNum)
   console.log(orderTotalNum)
 })
@@ -209,7 +217,6 @@ function getSum(ary){
     }, 0);
   }
 
-    const[orderTotal, setOrderTotal]=useState(getSum(itemCostArr))
     let checkoutOjb = {
         pickupOrDelivery:'',
         address: '',
@@ -271,9 +278,15 @@ function getSum(ary){
           {orderData.map(a=>{
               return( <CartListItem  itemName={a.itemName} specialInstruction={a.specialInstruction} addOnSp={a.addOnSP} unitPrice={a.unitPrice}/>) })}
       </div>
+     
       <div className="total-container">
-      
-      <p className="item-total">Order Total: $<span>{orderTotal.toFixed(2)}</span></p>
+      <div>
+      </div>
+     
+      <p className="item-total">Delivery Charge: ${deliveryCharge.toFixed(2)}</p>
+      <p>Tip for Driver: </p><input type="text" onChange={setTip}/>
+      <p className="item-total">(This is not the delivery charge.)</p>
+      <p className="item-total">Order Total: $<span>{totalDeliveryOrder.toFixed(2)}</span></p>
       <p className="item-total-tax">(Tax included in price.)</p>
       </div>
       
