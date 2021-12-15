@@ -9,6 +9,9 @@ import { pick } from 'lodash';
 
 
 const CheckoutForm = (props,{ price, onSuccessfulCheckout }) => {
+    const [error, setError] = useState('')
+    const [buttonText, setButtonText] = useState('PAY')
+    const [spinner, showSpinner] = useState('none')
     const navigate = useNavigate();
     const [paymentRequest, setPaymentRequest] = useState(null);
     const [success, setSuccess ] = useState(false)
@@ -67,18 +70,25 @@ const CheckoutForm = (props,{ price, onSuccessfulCheckout }) => {
         }
    
     const handleSubmit = async (e) => {
+        console.log(props.inputObject.fName + props.inputObject.address + props.inputObject.email)
+         
         if(props.city != "pampa"){
             e.preventDefault()
             alert('We do not Deliver Outside of City Limits of PAMPA.')
         } else{
+            if(props.inputObject.fname  || props.inputObject.address || props.inputObject.email !== null){
+              
+             
             setEnableDis(true )
             e.preventDefault()
-        
+        showSpinner('inline-block')
+        setButtonText("PROCESSING")
         const {error, paymentMethod} = await stripe.createPaymentMethod({
             type: "card",
             card: elements.getElement(CardElement)
         })
         if(!error) {
+            
             try {
                 const {id} = paymentMethod
                 const response = await axios.post("https://mama-lisas-api.herokuapp.com/payment", {
@@ -109,13 +119,24 @@ const CheckoutForm = (props,{ price, onSuccessfulCheckout }) => {
             } catch (error) {
                 console.log("Error", error)
                 setEnableDis(false )
+                showSpinner('none')
+                setButtonText("PAY")
+                setError(error.message)
             }
         } else {
             setEnableDis(false )
             console.log(error.message)
+            setError(error.message)
+            showSpinner('none')
+        setButtonText("PAY")
         }
+  
+    } else {
+        alert("Please fill out the entire form.")
+        e.preventDefault()
     }
 }
+    }
 
   return (
     <>
@@ -127,14 +148,20 @@ const CheckoutForm = (props,{ price, onSuccessfulCheckout }) => {
           
             </div>
         </fieldset>
+        <p style={{marginTop:'5px', textAlign:'end'}} className="item-total">Order Total: $<span>{props.ckoutTotal}</span></p>
         <p style={{fontSize:'small'}}>Powered by <b>STRIPE</b></p>
         <div className="btns">
-        <button disabled={enableDis} >Pay</button>
+       
+        <button disabled={enableDis} > <div style={{display: spinner}} id='loaderInline'></div><b>{buttonText}</b></button>
+        <div>
+      <p>{error}</p>
+   </div> 
         </div>
+     
     </form>
     :
    <div>
-      
+      {error}
    </div> 
     }
         

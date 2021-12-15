@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import ToggleButton from "react-bootstrap/ToggleButton";
+import ToggleButton2 from "react-bootstrap/ToggleButton";
+
 import ButtonGroup from "react-bootstrap/ButtonGroup";
+import ButtonGroup2 from "react-bootstrap/ButtonGroup";
 import "bootstrap/dist/css/bootstrap.min.css";
 import CartListItem from "../Components/CartList.jsx";
 import CheckoutForm from "../Components/CheckoutForm.jsx";
@@ -15,7 +18,7 @@ const Checkout = () => {
   }
   const itemCostArr = [];
   const[orderTotal, setOrderTotal]=useState(getSum(itemCostArr))
-  const [deliveryCharge, setDeliveryCharge] = useState(4);
+  const [deliveryCharge, setDeliveryCharge] = useState(0);
 const[tip , setSetTip] = useState(0)
   const [totalDeliveryOrder, setTotalDeliveryOrder] = useState(0)
 
@@ -41,14 +44,14 @@ function setTip (e) {
 
 
 const[orderPersonData, setOrderPersonData] = useState({
-  fName:'',
-  lName:'',
-  address:'',
+  fName:null,
+  lName:null,
+  address:null,
   city:'pampa',
-  state:'',
-  zip:'',
-  phone:'',
-  email:'',
+  state:null,
+  zip:null,
+  phone:null,
+  email:null,
   pickupOrDelivery:'',
   orderNo:makeid(6)
 
@@ -227,6 +230,7 @@ function getSum(ary){
     const[pickUpOrDeliverySetting, setPickupOrDeliverySetting] = useState(checkoutOjb.pickupOrDelivery)
     
     const [radioValue, setRadioValue] = useState('1');
+    const [radioValue2, setRadioValue2] = useState('1');
    const [showHide, setShowHide] = useState('none')
    const [paymentShowHide, setPaymentShowHide] = useState('none')
    const [pickShowHide, setPickShowHide] = useState('none')
@@ -235,6 +239,16 @@ function getSum(ary){
         { name: 'Pick-up', value: 'Pick-up' },
         
       ];
+
+      const radio2 = [
+        { name: '10%', value: '.10' },
+        { name: '15%', value: '.15' },
+        { name: '20%', value: '.20' },
+        { name: 'None', value: '0' }
+        
+      ];
+
+      
 
   return (
    
@@ -254,12 +268,20 @@ function getSum(ary){
             name="radio"
             value={radio.value}
             checked={radioValue === radio.value}
-            onChange={(e) => {setRadioValue(e.currentTarget.value); checkoutOjb.pickupOrDelivery = e.currentTarget.value; console.log(checkoutOjb); if(checkoutOjb.pickupOrDelivery === 'Delivery'){
+            onChange={(e) => {setRadioValue(e.currentTarget.value); checkoutOjb.pickupOrDelivery = e.currentTarget.value; console.log(checkoutOjb); 
+            if(checkoutOjb.pickupOrDelivery === 'Delivery'){
+              setDeliveryCharge(3.99);
                 setShowHide('block')
                 setPickShowHide('none')
                 setPickupOrDeliverySetting(checkoutOjb.pickupOrDelivery)
                 setPaymentShowHide('block')
-            } else{setShowHide('none'); setPickShowHide('block')} setPickupOrDeliverySetting(checkoutOjb.pickupOrDelivery);setPaymentShowHide('block') } }
+                
+                setTotalDeliveryOrder(addTotalCart(orderTotal, 0, tip))
+                
+            } else{setDeliveryCharge(0); setShowHide('none'); setPickShowHide('block')} setPickupOrDeliverySetting(checkoutOjb.pickupOrDelivery);setPaymentShowHide('block'); setSetTip(0.00);
+            
+            setTotalDeliveryOrder(addTotalCart(orderTotal, 2.99, tip))
+             } }
           >
             {radio.name}
           </ToggleButton>
@@ -283,10 +305,45 @@ function getSum(ary){
       <div>
       </div>
      
-      <p className="item-total">Delivery Charge: ${deliveryCharge.toFixed(2)}</p>
-      <p>Tip for Driver: </p><input type="text" onChange={setTip}/>
-      <p className="item-total">(This is not the delivery charge.)</p>
-      <p className="item-total">Order Total: $<span>{totalDeliveryOrder.toFixed(2)}</span></p>
+      <p style={{marginTop:'5px'}} className="item-total">Subtotal: ${orderTotal.toFixed(2)}</p>
+      <hr></hr>
+      <div style={{display:showHide}}>
+      <div className="tip-box">
+      <p style={{marginTop:'5px'}} className="item-total">Tip for Driver: &nbsp; &nbsp; &nbsp; </p>
+      <ButtonGroup >
+        {radio2.map((radio, idx) => (
+          <ToggleButton
+          style={{height:'30px', padding:'1px 8px'}}
+            key={idx}
+            id={`radio2-${idx}`}
+            type="radio"
+            variant={idx % 2 ? 'outline-danger' : 'outline-danger'}
+            name="radio-2"
+            value={radio.value}
+            checked={radioValue2 === radio.value}
+            onChange={(e) => {setRadioValue2(e.currentTarget.value); }}
+            onClick={()=>{
+              
+              let tip = Number(radio.value)
+
+             
+              setSetTip(tip * orderTotal)
+            
+            console.log(tip)}
+            }
+            >
+            {radio.name}
+          </ToggleButton>
+        ))}
+      </ButtonGroup>
+      </div>
+      <p style={{marginTop:'10px'}} className="item-total">Total Tip: ${tip.toFixed(2)}</p>
+      <hr></hr>
+      <p style={{marginTop:'5px'}} className="item-total">Delivery Charge: ${deliveryCharge.toFixed(2)}</p>
+
+      <p className="item-total">(This is not the driver's tip.)</p>
+      </div>
+      <p style={{marginTop:'5px'}} className="item-total">Order Total: $<span>{totalDeliveryOrder.toFixed(2)}</span></p>
       <p className="item-total-tax">(Tax included in price.)</p>
       </div>
       
@@ -355,17 +412,21 @@ function getSum(ary){
                 </h1>
                 <CheckoutForm 
                 city={orderPersonData.city.toLowerCase()} 
-                price={orderTotalNum} 
+                address={orderPersonData.address}
+                price={Math.round(orderTotalNum)} 
                 ot={orderTotalstr} 
                 options={CARD_OPTIONS}
                 emailName={orderPersonData.fName}
                 emailAddress={orderPersonData.email}
                 emailAddressAddress={`${orderPersonData.address} ${orderPersonData.city}, ${orderPersonData.state} ${orderPersonData.zip}`}
+                phone={orderPersonData.phone}
                 emailConfirmation={orderPersonData.orderNo}
                 emailOrderData={JSON.stringify(orderData)}
                 emailPickuporDeliveryTime={'30-45 mins'}
                 pickupOrDelivery={pickUpOrDeliverySetting}
-                emailTotal={orderTotal.toFixed(2)}
+                emailTotal={totalDeliveryOrder.toFixed(2)}
+                ckoutTotal={totalDeliveryOrder.toFixed(2)}
+                inputObject={orderPersonData}
                 deliveryAddress={`${orderPersonData.address} ${orderPersonData.city}, ${orderPersonData.state} ${orderPersonData.zip}`}
                 />
 
