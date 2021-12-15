@@ -15,6 +15,7 @@ import dessertImg from '../assets/img/MenuIcons/dessert.svg';
 import TableItem from "../Components/TableItem.jsx";
 import {useNavigate} from 'react-router-dom';
 import RadioButtons from "../Components/RadioButtons.jsx";
+import Loader from "../Components/Loader.jsx";
 import { add } from "lodash";
 const apiUrl = "https://mama-lisas-api.herokuapp.com/"
 const port = "http://localhost:3001/"
@@ -452,7 +453,7 @@ setFinalTotal(getSum(unitPriceIntArr))
 //Start Main Content
 
 if(isLoading == true){
-  return(<p>Loading...</p>)
+  return(<Loader/>)
 } else {
 
     return(
