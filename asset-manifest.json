@@ -1,17 +1,17 @@
 {
   "files": {
     "main.css": "/Mama-Lisas/static/css/main.b2c13912.chunk.css",
-    "main.js": "/Mama-Lisas/static/js/main.a4731d3b.chunk.js",
-    "main.js.map": "/Mama-Lisas/static/js/main.a4731d3b.chunk.js.map",
+    "main.js": "/Mama-Lisas/static/js/main.46dc883e.chunk.js",
+    "main.js.map": "/Mama-Lisas/static/js/main.46dc883e.chunk.js.map",
     "runtime-main.js": "/Mama-Lisas/static/js/runtime-main.024907b7.js",
     "runtime-main.js.map": "/Mama-Lisas/static/js/runtime-main.024907b7.js.map",
     "static/css/2.598ff574.chunk.css": "/Mama-Lisas/static/css/2.598ff574.chunk.css",
-    "static/js/2.31049373.chunk.js": "/Mama-Lisas/static/js/2.31049373.chunk.js",
-    "static/js/2.31049373.chunk.js.map": "/Mama-Lisas/static/js/2.31049373.chunk.js.map",
+    "static/js/2.62f3c3da.chunk.js": "/Mama-Lisas/static/js/2.62f3c3da.chunk.js",
+    "static/js/2.62f3c3da.chunk.js.map": "/Mama-Lisas/static/js/2.62f3c3da.chunk.js.map",
     "index.html": "/Mama-Lisas/index.html",
     "static/css/2.598ff574.chunk.css.map": "/Mama-Lisas/static/css/2.598ff574.chunk.css.map",
     "static/css/main.b2c13912.chunk.css.map": "/Mama-Lisas/static/css/main.b2c13912.chunk.css.map",
-    "static/js/2.31049373.chunk.js.LICENSE.txt": "/Mama-Lisas/static/js/2.31049373.chunk.js.LICENSE.txt",
+    "static/js/2.62f3c3da.chunk.js.LICENSE.txt": "/Mama-Lisas/static/js/2.62f3c3da.chunk.js.LICENSE.txt",
     "static/media/index.css": "/Mama-Lisas/static/media/ClarityNuvo-Bold.518306d0.otf",
     "static/media/FoodDelight.74c2614a.otf": "/Mama-Lisas/static/media/FoodDelight.74c2614a.otf",
     "static/media/arrowright.eadd193c.svg": "/Mama-Lisas/static/media/arrowright.eadd193c.svg",
@@ -21,6 +21,7 @@
     "static/media/car3.2b712a35.jpg": "/Mama-Lisas/static/media/car3.2b712a35.jpg",
     "static/media/dessert.360373d5.svg": "/Mama-Lisas/static/media/dessert.360373d5.svg",
     "static/media/dish.95f18696.svg": "/Mama-Lisas/static/media/dish.95f18696.svg",
+    "static/media/loading.a034ffe9.png": "/Mama-Lisas/static/media/loading.a034ffe9.png",
     "static/media/logo.15fc758f.png": "/Mama-Lisas/static/media/logo.15fc758f.png",
     "static/media/menubook.a50ec605.svg": "/Mama-Lisas/static/media/menubook.a50ec605.svg",
     "static/media/ricebowl.61f0bd9c.svg": "/Mama-Lisas/static/media/ricebowl.61f0bd9c.svg",
@@ -29,8 +30,8 @@
   "entrypoints": [
     "static/js/runtime-main.024907b7.js",
     "static/css/2.598ff574.chunk.css",
-    "static/js/2.31049373.chunk.js",
+    "static/js/2.62f3c3da.chunk.js",
     "static/css/main.b2c13912.chunk.css",
-    "static/js/main.a4731d3b.chunk.js"
+    "static/js/main.46dc883e.chunk.js"
   ]
 }
