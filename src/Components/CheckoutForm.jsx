@@ -148,8 +148,13 @@ const CheckoutForm = (props,{ price, onSuccessfulCheckout }) => {
           
             </div>
         </fieldset>
-        <p style={{marginTop:'5px', textAlign:'end'}} className="item-total">Order Total: $<span>{props.ckoutTotal}</span></p>
         <p style={{fontSize:'small'}}>Powered by <b>STRIPE</b></p>
+<div style={{display:props.showHide, textAlign:'end'}}>
+        <p style={{marginTop:'5px'}} className="item-total">Delivery Charge: ${props.deliveryCharge}</p>
+
+<p className="item-total">(This is not the driver's tip.)</p>
+</div>
+        <p style={{marginTop:'5px', textAlign:'end'}} className="item-total">Order Total: $<span>{props.ckoutTotal}</span></p>
         <div className="btns">
        
         <button disabled={enableDis} > <div style={{display: spinner}} id='loaderInline'></div><b>{buttonText}</b></button>

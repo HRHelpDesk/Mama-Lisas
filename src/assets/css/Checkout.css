@@ -15,7 +15,7 @@
 }
 .checkout-form-body {
     display: block;
-    padding: 20px;
+    padding: 20px 0px 0px 0px;
    
   
   }
@@ -98,9 +98,7 @@
     letter-spacing: 1px;
     font-weight: bold;
   }
-  .checkout-form h1:nth-of-type(2) {
-    margin-top: 10%;
-  }
+
   
   .name {
     justify-content: space-between;

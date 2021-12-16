@@ -301,51 +301,7 @@ function getSum(ary){
               return( <CartListItem  itemName={a.itemName} specialInstruction={a.specialInstruction} addOnSp={a.addOnSP} unitPrice={a.unitPrice}/>) })}
       </div>
      
-      <div className="total-container">
-      <div>
-      </div>
      
-      <p style={{marginTop:'5px'}} className="item-total">Subtotal: ${orderTotal.toFixed(2)}</p>
-      <hr></hr>
-      <div style={{display:showHide}}>
-      <div className="tip-box">
-      <p style={{marginTop:'5px'}} className="item-total">Tip for Driver: &nbsp; &nbsp; &nbsp; </p>
-      <ButtonGroup >
-        {radio2.map((radio, idx) => (
-          <ToggleButton
-          style={{height:'30px', padding:'1px 8px'}}
-            key={idx}
-            id={`radio2-${idx}`}
-            type="radio"
-            variant={idx % 2 ? 'outline-danger' : 'outline-danger'}
-            name="radio-2"
-            value={radio.value}
-            checked={radioValue2 === radio.value}
-            onChange={(e) => {setRadioValue2(e.currentTarget.value); }}
-            onClick={()=>{
-              
-              let tip = Number(radio.value)
-
-             
-              setSetTip(tip * orderTotal)
-            
-            console.log(tip)}
-            }
-            >
-            {radio.name}
-          </ToggleButton>
-        ))}
-      </ButtonGroup>
-      </div>
-      <p style={{marginTop:'10px'}} className="item-total">Total Tip: ${tip.toFixed(2)}</p>
-      <hr></hr>
-      <p style={{marginTop:'5px'}} className="item-total">Delivery Charge: ${deliveryCharge.toFixed(2)}</p>
-
-      <p className="item-total">(This is not the driver's tip.)</p>
-      </div>
-      <p style={{marginTop:'5px'}} className="item-total">Order Total: $<span>{totalDeliveryOrder.toFixed(2)}</span></p>
-      <p className="item-total-tax">(Tax included in price.)</p>
-      </div>
       
       </div>
       
@@ -407,10 +363,53 @@ function getSum(ary){
                     <label for="email">Email Address</label>
                     <input onChange={recordInputValue} type="text" name="email"/>
                   </div>
+                  <div className="total-container">
+      <div>
+      </div>
+     
+      <p style={{marginTop:'5px'}} className="item-total">Subtotal: ${orderTotal.toFixed(2)}</p>
+      <hr></hr>
+      <div style={{display:showHide}}>
+      <div className="tip-box">
+      <p style={{marginTop:'5px'}} className="item-total">Tip for Driver: &nbsp; &nbsp; &nbsp; </p>
+      <ButtonGroup >
+        {radio2.map((radio, idx) => (
+          <ToggleButton
+          style={{height:'30px', padding:'1px 8px'}}
+            key={idx}
+            id={`radio2-${idx}`}
+            type="radio"
+            variant={idx % 2 ? 'outline-danger' : 'outline-danger'}
+            name="radio-2"
+            value={radio.value}
+            checked={radioValue2 === radio.value}
+            onChange={(e) => {setRadioValue2(e.currentTarget.value); }}
+            onClick={()=>{
+              
+              let tip = Number(radio.value)
+
+             
+              setSetTip(tip * orderTotal)
+            
+            console.log(tip)}
+            }
+            >
+            {radio.name}
+          </ToggleButton>
+        ))}
+      </ButtonGroup>
+      </div>
+      <p style={{marginTop:'10px'}} className="item-total">Total Tip: ${tip.toFixed(2)}</p>
+      <hr></hr>
+     
+      </div>
+      
+      </div>
                 <h1>
                  Payment Information
                 </h1>
                 <CheckoutForm 
+                showHide={showHide}
                 city={orderPersonData.city.toLowerCase()} 
                 address={orderPersonData.address}
                 price={Math.round(orderTotalNum)} 
@@ -427,6 +426,7 @@ function getSum(ary){
                 emailTotal={totalDeliveryOrder.toFixed(2)}
                 ckoutTotal={totalDeliveryOrder.toFixed(2)}
                 inputObject={orderPersonData}
+                deliveryCharge={deliveryCharge.toFixed(2)}
                 deliveryAddress={`${orderPersonData.address} ${orderPersonData.city}, ${orderPersonData.state} ${orderPersonData.zip}`}
                 />
 
