@@ -1,6 +1,6 @@
 import Home from "./Pages/FrontEnd//home.jsx"
 import "animate.css"
-import { Routes, Route, Link } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Menu from './Pages/FrontEnd//Menu.jsx'
 import Admin from "./Pages/Admin/Admin.jsx";

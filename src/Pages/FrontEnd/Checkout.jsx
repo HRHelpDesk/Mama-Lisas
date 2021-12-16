@@ -287,7 +287,7 @@ function getSum(ary){
           </ToggleButton>
         ))}
       </ButtonGroup>
-      <p style={{fontSize:'18px', marginTop:'15px'}} className="checkout-heading">**NOTE: We only deliver within ten miles outside of our location if you are outside of that your order will be canceled and refunded promptly.**</p>
+      <p style={{fontSize:'18px', marginTop:'15px'}} className="checkout-heading">**NOTE: We do not deliver uutside of city limits of PAMPA. If you are outside of the city limits, your order will be canceled and refunded promptly.**</p>
 
       </div>
 

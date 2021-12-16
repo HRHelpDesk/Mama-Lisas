@@ -37,7 +37,7 @@
     width: 100%;
     display: block;
     justify-content: center;
-   padding: 20px;
+   padding: 20px 10px;
     border: 1px solid black;
    
     border-radius: 10px;
@@ -208,6 +208,11 @@
     .tip-box{
       display: block;
     }
+  }
+
+  .checkout-wrapper{
+    padding: 0px;
+    border: none;
   }
 
  
