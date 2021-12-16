@@ -134,8 +134,8 @@
     margin: 3px 0;
     height: 30px;
     width: 40%;
-    color: #cfc9e1;
-    background-color: #4a3b76;
+    color: white;
+    background-color: #40975a;
     text-transform: uppercase;
     border: 0;
     border-radius: 0.3rem;
@@ -149,8 +149,8 @@
   
   @keyframes btn-hov {
     100% {
-      background-color: #cfc9e1;
-      color: #4a3b76;
+      background-color: #80b690;
+      color: white;
       transform: scale(1.05);
     }
   }
@@ -186,7 +186,7 @@
     .name div,
   .address-info div,
   .cc-info div {
-      align-items: center;
+    
       flex-direction: column;
       width: 100%;
       display: flex;
@@ -194,19 +194,25 @@
   
     .street,
   .cc-num {
-      text-align: center;
+      
     }
   
    .checkout-form input {
       margin: 5px 0;
-      min-height: 30px;
+      min-height: 35px;
     }
 
     
   } 
-  @media (max-width: 436px) {
+  @media (max-width: 456px) {
     .tip-box{
       display: block;
+    }
+
+    .btns button {
+
+      height: 35px;
+      width: 100%;
     }
   }
 
