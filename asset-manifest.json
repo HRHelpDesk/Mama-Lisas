@@ -1,8 +1,8 @@
 {
   "files": {
-    "main.css": "/Mama-Lisas/static/css/main.b2c13912.chunk.css",
-    "main.js": "/Mama-Lisas/static/js/main.b113f52c.chunk.js",
-    "main.js.map": "/Mama-Lisas/static/js/main.b113f52c.chunk.js.map",
+    "main.css": "/Mama-Lisas/static/css/main.dd0ccb95.chunk.css",
+    "main.js": "/Mama-Lisas/static/js/main.cc97c489.chunk.js",
+    "main.js.map": "/Mama-Lisas/static/js/main.cc97c489.chunk.js.map",
     "runtime-main.js": "/Mama-Lisas/static/js/runtime-main.3f09d078.js",
     "runtime-main.js.map": "/Mama-Lisas/static/js/runtime-main.3f09d078.js.map",
     "static/css/2.598ff574.chunk.css": "/Mama-Lisas/static/css/2.598ff574.chunk.css",
@@ -10,7 +10,7 @@
     "static/js/2.ae8af804.chunk.js.map": "/Mama-Lisas/static/js/2.ae8af804.chunk.js.map",
     "index.html": "/Mama-Lisas/index.html",
     "static/css/2.598ff574.chunk.css.map": "/Mama-Lisas/static/css/2.598ff574.chunk.css.map",
-    "static/css/main.b2c13912.chunk.css.map": "/Mama-Lisas/static/css/main.b2c13912.chunk.css.map",
+    "static/css/main.dd0ccb95.chunk.css.map": "/Mama-Lisas/static/css/main.dd0ccb95.chunk.css.map",
     "static/js/2.ae8af804.chunk.js.LICENSE.txt": "/Mama-Lisas/static/js/2.ae8af804.chunk.js.LICENSE.txt",
     "static/media/index.css": "/Mama-Lisas/static/media/ClarityNuvo-Bold.518306d0.otf",
     "static/media/FoodDelight.74c2614a.otf": "/Mama-Lisas/static/media/FoodDelight.74c2614a.otf",
@@ -31,7 +31,7 @@
     "static/js/runtime-main.3f09d078.js",
     "static/css/2.598ff574.chunk.css",
     "static/js/2.ae8af804.chunk.js",
-    "static/css/main.b2c13912.chunk.css",
-    "static/js/main.b113f52c.chunk.js"
+    "static/css/main.dd0ccb95.chunk.css",
+    "static/js/main.cc97c489.chunk.js"
   ]
 }
