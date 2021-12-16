@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import Map from '../Components/Map';
-import logo from '../assets/img/logo.png'
+import Map from '../../Components/Map';
+import logo from '../../assets/img/logo.png'
 
 const Success = ()=>{
     const location = {

@@ -1,21 +1,21 @@
 import React, { useEffect } from "react";
-import NavigationBar from '../Components/NavigationBar.jsx';
-import CarouselComponent from "../Components/Carousel.jsx";
-import MenuCat from "../Components/MenuCat.jsx";
+import NavigationBar from '../../Components/NavigationBar.jsx';
+import CarouselComponent from "../../Components/Carousel.jsx";
+import MenuCat from "../../Components/MenuCat.jsx";
 import { Modal, Button } from "react-bootstrap";
 import { useState } from 'react';
 import Axios from 'axios';
-import MenuModal from "../Components/MenuModal.jsx";
-import CartModal from "../Components/CartModal.jsx";
-import MenuItem from "../Components/MenuItem.jsx";
-import meImg from '../assets/img/MenuIcons/dish.svg';
-import spImg from '../assets/img/MenuIcons/menubook.svg';
-import drinkImg from '../assets/img/MenuIcons/soda.svg';
-import dessertImg from '../assets/img/MenuIcons/dessert.svg';
-import TableItem from "../Components/TableItem.jsx";
+import MenuModal from "../../Components/MenuModal.jsx";
+import CartModal from "../../Components/CartModal.jsx";
+import MenuItem from "../../Components/MenuItem.jsx";
+import meImg from '../../assets/img/MenuIcons/dish.svg';
+import spImg from '../../assets/img/MenuIcons/menubook.svg';
+import drinkImg from '../../assets/img/MenuIcons/soda.svg';
+import dessertImg from '../../assets/img/MenuIcons/dessert.svg';
+import TableItem from "../../Components/TableItem.jsx";
 import {useNavigate} from 'react-router-dom';
-import RadioButtons from "../Components/RadioButtons.jsx";
-import Loader from "../Components/Loader.jsx";
+import RadioButtons from "../../Components/RadioButtons.jsx";
+import Loader from "../../Components/Loader.jsx";
 import { add } from "lodash";
 const apiUrl = "https://mama-lisas-api.herokuapp.com/"
 const port = "http://localhost:3001/"

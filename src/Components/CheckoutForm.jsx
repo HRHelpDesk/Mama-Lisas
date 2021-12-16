@@ -71,8 +71,9 @@ const CheckoutForm = (props,{ price, onSuccessfulCheckout }) => {
    
     const handleSubmit = async (e) => {
         console.log(props.inputObject.fName + props.inputObject.address + props.inputObject.email)
-         
-        if(props.city != "pampa"){
+         let city = props.city.split(' ').join('');
+         console.log(city)
+        if(city != "pampa"){
             e.preventDefault()
             alert('We do not Deliver Outside of City Limits of PAMPA.')
         } else{

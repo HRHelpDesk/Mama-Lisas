@@ -1,10 +1,10 @@
 import React from "react";
-import '../assets/fonts/FoodDelight/FoodDelight.otf'
-import logo from "../assets/img/logo.png"
+import '../../assets/fonts/FoodDelight/FoodDelight.otf'
+import logo from "../../assets/img/logo.png"
 import { Button, Row, Col} from 'react-bootstrap';
-import MenuCat from "../Components/MenuCat";
+import MenuCat from "../../Components/MenuCat";
 import { Link } from "react-router-dom";
-import Map from '../Components/Map.jsx';
+import Map from '../../Components/Map.jsx';
 
 
     

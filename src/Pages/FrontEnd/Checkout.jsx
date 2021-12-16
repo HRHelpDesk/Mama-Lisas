@@ -5,12 +5,12 @@ import ToggleButton2 from "react-bootstrap/ToggleButton";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 import ButtonGroup2 from "react-bootstrap/ButtonGroup";
 import "bootstrap/dist/css/bootstrap.min.css";
-import CartListItem from "../Components/CartList.jsx";
-import CheckoutForm from "../Components/CheckoutForm.jsx";
+import CartListItem from "../../Components/CartList.jsx";
+import CheckoutForm from "../../Components/CheckoutForm.jsx";
 import { CardElement } from "@stripe/react-stripe-js";
-import '../assets/css/Checkout.css'
+import '../../assets/css/Checkout.css'
 import axios from "axios";
-import logo from '../assets/img/logo.png'
+import logo from '../../assets/img/logo.png'
 const Checkout = () => {
   const addTotalCart = (a,b,c)=>{
     console.log(Number(a) + Number(b) + Number(c))

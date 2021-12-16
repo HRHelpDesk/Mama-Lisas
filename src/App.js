@@ -1,12 +1,12 @@
-import Home from "./Pages/home.jsx"
+import Home from "./Pages/FrontEnd//home.jsx"
 import "animate.css"
 import { Routes, Route, Link } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Menu from './Pages/Menu.jsx'
-import Checkout from "./Pages/Checkout.jsx";
-import ParentCheckout from "./Pages/ParentCheckout.jsx";
-import Success from "./Pages/Success.jsx";
-import SuccessDelivery from "./Pages/SuccessDelivery.jsx";
+import Menu from './Pages/FrontEnd//Menu.jsx'
+import Admin from "./Pages/Admin/Admin.jsx";
+import ParentCheckout from "./Pages/FrontEnd/ParentCheckout.jsx";
+import Success from "./Pages/FrontEnd/Success.jsx";
+import SuccessDelivery from "./Pages/FrontEnd/SuccessDelivery.jsx";
 function App() {
   return (
     <div className="App">
@@ -16,6 +16,7 @@ function App() {
        <Route path='/checkout' element={<ParentCheckout/>}/>
        <Route path='/success' element={<Success/>}/>
        <Route path='/deliverysuccess' element={<SuccessDelivery/>}/>
+       <Route path='/admin' element={<Admin/>}/>
       </Routes>
       </div>
   );
