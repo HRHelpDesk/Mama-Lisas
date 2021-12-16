@@ -157,6 +157,12 @@
 
   
   @media (max-width: 736px) {
+    .btns button {
+
+      height: 35px;
+      width: 100%;
+    }
+
     .wrapper {
       width: 100%;
     }
@@ -168,10 +174,7 @@
     .btns {
       align-items: center;
     }
-    .btns button {
-      width: 50%;
-    }
-  
+    
     form h1 {
       text-align: center;
     }
@@ -192,10 +195,7 @@
       display: flex;
     }
   
-    .street,
-  .cc-num {
-      
-    }
+  
   
    .checkout-form input {
       margin: 5px 0;

@@ -167,7 +167,7 @@ const CheckoutForm = (props,{ price, onSuccessfulCheckout }) => {
     </form>
     :
    <div>
-      {error}
+     <p style={{fontWeight:'bold', color:'red'}}>{error}</p> 
    </div> 
     }
         

@@ -16,7 +16,7 @@ function App() {
        <Route path='/checkout' element={<ParentCheckout/>}/>
        <Route path='/success' element={<Success/>}/>
        <Route path='/deliverysuccess' element={<SuccessDelivery/>}/>
-       <Route path='/admin' element={<Admin/>}/>
+       <Route path='/admin/*' element={<Admin/>}/>
       </Routes>
       </div>
   );
