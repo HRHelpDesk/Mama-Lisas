@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import CartListItem from "../../Components/CartList";
-
+import axios from "axios";
 const Dashboard = ()=>{
 const ORDERLIST = [{
     datePlaced: '12/16/2021',
@@ -18,12 +18,13 @@ const ORDERLIST = [{
     phoneNumber:'806-486-7825',
     order:JSON.parse(localStorage.getItem('cart-data')),
 }
+
+
 ]
-    const Orders = JSON.parse(localStorage.getItem('cart-data'))
    
     return(
     <div style={{padding:'60px'}}>
-    <p style={{fontSize:'32px', textAlign:'end'}}>DASHBOARD</p>
+    <p style={{fontSize:'32px', fontWeight:'bold', textAlign:'end'}}>DASHBOARD</p>
     <hr></hr>
     <div>
         <p>TODAYS SALES:</p>

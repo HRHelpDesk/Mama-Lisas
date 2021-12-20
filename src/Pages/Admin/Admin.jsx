@@ -8,7 +8,9 @@ import {
   import logo from '../../assets/img/logo.png'
 import Dashboard from "./Dashboard.jsx";
 import MenuEditor from "./MenuEditor.jsx";
+import Reports from "./Reports";
 import Settings from './Settings'
+import RegisterMenu from "./RegisterMenu";
 import SideNav from "../../Components/SideNav.jsx";
 import {Container, Row, Col, Card, Form, Button, Nav, Navbar,Offcanvas, NavDropdown, FormControl } from "react-bootstrap";
 const Admin = ()=>{
@@ -30,9 +32,11 @@ return (
       </Offcanvas.Header>
       <Offcanvas.Body>
         <Nav className="justify-content-end flex-grow-1 pe-3">
-        <Nav.Link ><Link to="dashboard">Dash</Link></Nav.Link>
+        <Nav.Link ><Link to="/admin">Dashboard</Link></Nav.Link>
           <Nav.Link ><Link to="Menu-Editor">Menu Editor</Link></Nav.Link>
           <Nav.Link ><Link to="settings">Settings</Link></Nav.Link>
+          <Nav.Link ><Link to="reports">Reports</Link></Nav.Link>
+          <Nav.Link ><Link to="admin-order">Register Order</Link></Nav.Link>
           
          
         </Nav>
@@ -49,9 +53,11 @@ return (
    
 
     <Routes>
-    <Route path="dashboard" element={<Dashboard />} />
+    <Route path="/" element={<Dashboard />} />
         <Route path="Menu-Editor" element={<MenuEditor />} />
         <Route path="settings" element={<Settings />} />
+        <Route path="reports" element={<Reports />} />
+        <Route path="admin-order" element={<RegisterMenu />} />
         
       </Routes>
     </div>

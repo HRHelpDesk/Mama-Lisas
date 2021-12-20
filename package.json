@@ -22,6 +22,7 @@
     "react-router-dom": "^6.0.1",
     "react-scripts": "4.0.3",
     "react-stripe-checkout": "^2.6.3",
+    "react-switch": "^6.0.0",
     "serialport": "^9.2.8",
     "smartcard": "^1.0.46",
     "stripe": "^8.191.0",
