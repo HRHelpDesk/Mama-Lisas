@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/Mama-Lisas/static/css/main.aaa01d19.chunk.css",
-    "main.js": "/Mama-Lisas/static/js/main.619fe30c.chunk.js",
-    "main.js.map": "/Mama-Lisas/static/js/main.619fe30c.chunk.js.map",
+    "main.css": "/Mama-Lisas/static/css/main.0e91d350.chunk.css",
+    "main.js": "/Mama-Lisas/static/js/main.1c90dbbe.chunk.js",
+    "main.js.map": "/Mama-Lisas/static/js/main.1c90dbbe.chunk.js.map",
     "runtime-main.js": "/Mama-Lisas/static/js/runtime-main.3f09d078.js",
     "runtime-main.js.map": "/Mama-Lisas/static/js/runtime-main.3f09d078.js.map",
     "static/css/2.598ff574.chunk.css": "/Mama-Lisas/static/css/2.598ff574.chunk.css",
-    "static/js/2.5549a51b.chunk.js": "/Mama-Lisas/static/js/2.5549a51b.chunk.js",
-    "static/js/2.5549a51b.chunk.js.map": "/Mama-Lisas/static/js/2.5549a51b.chunk.js.map",
+    "static/js/2.fe26b879.chunk.js": "/Mama-Lisas/static/js/2.fe26b879.chunk.js",
+    "static/js/2.fe26b879.chunk.js.map": "/Mama-Lisas/static/js/2.fe26b879.chunk.js.map",
     "index.html": "/Mama-Lisas/index.html",
     "static/css/2.598ff574.chunk.css.map": "/Mama-Lisas/static/css/2.598ff574.chunk.css.map",
-    "static/css/main.aaa01d19.chunk.css.map": "/Mama-Lisas/static/css/main.aaa01d19.chunk.css.map",
-    "static/js/2.5549a51b.chunk.js.LICENSE.txt": "/Mama-Lisas/static/js/2.5549a51b.chunk.js.LICENSE.txt",
+    "static/css/main.0e91d350.chunk.css.map": "/Mama-Lisas/static/css/main.0e91d350.chunk.css.map",
+    "static/js/2.fe26b879.chunk.js.LICENSE.txt": "/Mama-Lisas/static/js/2.fe26b879.chunk.js.LICENSE.txt",
     "static/media/index.css": "/Mama-Lisas/static/media/ClarityNuvo-Bold.518306d0.otf",
     "static/media/FoodDelight.74c2614a.otf": "/Mama-Lisas/static/media/FoodDelight.74c2614a.otf",
     "static/media/arrowright.eadd193c.svg": "/Mama-Lisas/static/media/arrowright.eadd193c.svg",
@@ -20,6 +20,7 @@
     "static/media/car2.2977d9bd.jpg": "/Mama-Lisas/static/media/car2.2977d9bd.jpg",
     "static/media/car3.2b712a35.jpg": "/Mama-Lisas/static/media/car3.2b712a35.jpg",
     "static/media/dessert.360373d5.svg": "/Mama-Lisas/static/media/dessert.360373d5.svg",
+    "static/media/ding.83acb653.mp3": "/Mama-Lisas/static/media/ding.83acb653.mp3",
     "static/media/dish.95f18696.svg": "/Mama-Lisas/static/media/dish.95f18696.svg",
     "static/media/loading.a034ffe9.png": "/Mama-Lisas/static/media/loading.a034ffe9.png",
     "static/media/logo.15fc758f.png": "/Mama-Lisas/static/media/logo.15fc758f.png",
@@ -30,8 +31,8 @@
   "entrypoints": [
     "static/js/runtime-main.3f09d078.js",
     "static/css/2.598ff574.chunk.css",
-    "static/js/2.5549a51b.chunk.js",
-    "static/css/main.aaa01d19.chunk.css",
-    "static/js/main.619fe30c.chunk.js"
+    "static/js/2.fe26b879.chunk.js",
+    "static/css/main.0e91d350.chunk.css",
+    "static/js/main.1c90dbbe.chunk.js"
   ]
 }
