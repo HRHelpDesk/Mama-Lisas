@@ -418,6 +418,8 @@ function getSum(ary){
                 options={CARD_OPTIONS}
                 emailName={orderPersonData.fName}
                 emailAddress={orderPersonData.email}
+                emailPhoneNumber={orderPersonData.phone}
+                emailLName={orderPersonData.lName}
                 emailAddressAddress={`${orderPersonData.address} ${orderPersonData.city}, ${orderPersonData.state} ${orderPersonData.zip}`}
                 phone={orderPersonData.phone}
                 emailConfirmation={orderPersonData.orderNo}
@@ -427,6 +429,7 @@ function getSum(ary){
                 emailTotal={totalDeliveryOrder.toFixed(2)}
                 ckoutTotal={totalDeliveryOrder.toFixed(2)}
                 inputObject={orderPersonData}
+                pickupOrDeliveryEmail={pickUpOrDeliverySetting}
                 deliveryCharge={deliveryCharge.toFixed(2)}
                 deliveryAddress={`${orderPersonData.address} ${orderPersonData.city}, ${orderPersonData.state} ${orderPersonData.zip}`}
                 />

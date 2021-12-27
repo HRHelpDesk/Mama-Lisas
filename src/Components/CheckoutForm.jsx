@@ -22,13 +22,15 @@ const CheckoutForm = (props,{ price, onSuccessfulCheckout }) => {
     const sendEmailPickup = async () => {
 
         const response = await axios.post("https://mama-lisas-api.herokuapp.com/send-email-pickup",{
-          name: props.emailName,
-          email: props.emailAddress,
-          address:props.emailAddressAddress,
-          confirmation: props.emailConfirmation,
-          order: props.emailOrderData,
-          pickuporDeliveryTime:props.emailPickuporDeliveryTime,
-          total: props.emailTotal,
+            fname: props.emailName,
+            lname: props.emailLName,
+            email: props.emailAddress,
+            phone:props.emailPhoneNumber,
+            confirmation: props.emailConfirmation,
+            order: props.emailOrderData,
+            pickupOrDelivery: props.pickupOrDeliveryEmail,
+            pickuporDeliveryTime:props.emailPickuporDeliveryTime,
+            total: props.emailTotal,
       
       
         });
@@ -41,11 +43,14 @@ const CheckoutForm = (props,{ price, onSuccessfulCheckout }) => {
         const sendEmailDelivery = async () => {
 
             const response = await axios.post("https://mama-lisas-api.herokuapp.com/send-email-delivery",{
-              name: props.emailName,
+              fname: props.emailName,
+              lname: props.emailLName,
               email: props.emailAddress,
+              phone:props.emailPhoneNumber,
               address:props.emailAddressAddress,
               confirmation: props.emailConfirmation,
               order: props.emailOrderData,
+              pickupOrDelivery: props.pickupOrDeliveryEmail,
               pickuporDeliveryTime:props.emailPickuporDeliveryTime,
               total: props.emailTotal,
           

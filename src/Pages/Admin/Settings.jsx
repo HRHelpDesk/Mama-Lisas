@@ -1,58 +1,58 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import Switch from "react-switch";
+import ToggleSwitch from "../../Components/ToggleSwitch";
 const Settings = ()=>{
-    const [settings, setSettings] = useState({
-        _id: '',
-        isOpen: true,
-        location: "na",
-        openTime: "na",
-        closedTime: "na",
-        deliveryTime: "na",
-        pickUpTime: "na"
-    })
-const[checked, setChecked] = useState()
-function handleChange() {
-    if(checked){
-    setChecked(false);
-    setSettings((p)=>{
-        return{
-        _id: p._id,
-        isOpen: false,
-        location: p.location,
-        openTime: p.openTime,
-        closedTime: p.closedTime,
-        deliveryTime: p.deliveryTime,
-        pickUpTime: p.pickUpTime   
-        }
-    })
+    const [isLoading, setLoading] = useState(true)
+    const [settings, setSettings] = useState(null)
+const[checked, setChecked] = useState(false)
+const [value, setValue] = useState(false);
+
+const setOpen = ()=>{
+    setValue(false)
+    console.log('set open')
+    setTimeout(()=>{
+        setSettings((prevState)=>{
+
+            let ojb = Object.assign({}, prevState.settings);  // creating copy of state variable jasper
+            ojb.isOpen = value;                     // update the name property, assign a new value                 
+  return { ojb };     
+       
+    })},1500)
+
     setTimeout(()=>{
         console.log(settings.isOpen)
         UpdateSettings()
-    },1000)
-        
-
-    } else{
-        setChecked(true)
-        setSettings((p)=>{
-            return{
-            _id: p._id,
-            isOpen: true,
-            location: p.location,
-            openTime: p.openTime,
-            closedTime: p.closedTime,
-            deliveryTime: p.deliveryTime,
-            pickUpTime: p.pickUpTime   
-            }
-        })
-        setTimeout(()=>{
-            console.log(settings.isOpen)
-            UpdateSettings()
-        },1000)
+        GetSettings()
+    },3000)
 
 
-    }
-  }
+}
+
+const saveSetting = ()=>{
+    console.log(settings.isOpen)
+}
+
+const setClosed = ()=>{
+    setValue(true)
+    console.log('set closed')
+    setTimeout(()=>{
+        setSettings((prevState)=>{
+
+            let ojb = Object.assign({}, prevState.settings);  // creating copy of state variable jasper
+            ojb.isOpen = value;                     // update the name property, assign a new value                 
+  return { ojb };     
+       
+    })},1500)
+
+    setTimeout(()=>{
+        console.log(settings.isOpen)
+        UpdateSettings()
+        GetSettings()
+    },3000)
+
+}
+
+
 
 
 const showDiv= (e,a)=>{
@@ -66,55 +66,44 @@ const GetSettings = async () => {
   
     let presets = response.data
    setSettings(response.data[0])
+  console.log(response.data[0].isOpen)
+  setValue(response.data[0].isOpen)
+
    
-   console.log(response.data[0])
+
     
 
     };
+    let openStatus = [
+        
+            {
+                OC:'Closed',
+                color: 'red'
+            },
+            {
+                OC:'Open',
+                color: 'green'
+            }
 
-    const[openClose, setOpenClosed] = useState({
-        OC:'',
-        color: 'red'
-    })
+        
+    ]
+
+  
 
     const Orders = JSON.parse(localStorage.getItem('cart-data'))
 
     useEffect(()=>{
         GetSettings().then(()=>{
-            console.log(settings.isOpen)
-            setTimeout(()=>{
-                if(settings.isOpen === true){
-                    setOpenClosed({OC:'Open',
-                 color:'green'
-                 })
-              
-                } else if(settings.isOpen != true) {
-                 setOpenClosed({OC:'Closed',
-                 color:'red'
-                 }) 
         
-                }
-            },1000)
-                
+                setLoading(false)}
             
-            
-        })
+          )
        
     },[])
     const onChangeInputs = (event)=>{
         const {name, value} = event.target
         setSettings((p)=>{
-            if(name === 'isOpen'){
-                return{
-                    _id: p._id,
-            isOpen: value,
-            location: p.location,
-            openTime: p.openTime,
-            closedTime: p.closedTime,
-            deliveryTime: p.deliveryTime,
-            pickUpTime: p.pickUpTime
-                }
-            } else if(name === 'location'){
+            if(name === 'location'){
                 return{
                     _id: p._id,
             isOpen: p.isOpen,
@@ -173,8 +162,8 @@ const GetSettings = async () => {
         axios.put('http://localhost:3001/settings', settings)
           .then(response => {
             console.log(response);
-            // document.getElementById(a).style.display = 'none'
-            // document.getElementById(b).style.display = 'block'
+            document.getElementById(a).style.display = 'none'
+            document.getElementById(b).style.display = 'block'
           })
           .catch(error => {
             console.log(error);
@@ -184,15 +173,24 @@ const GetSettings = async () => {
         connectionStatus:'DISCONNECTED',
         color:'red'
     })
+
+    if(isLoading){
+            return (<p>Loading</p>)
+    } else {
     return(
     <div style={{padding:'60px'}}>
     <p style={{fontSize:'32px', textAlign:'end', fontWeight:'bold', color:'gray'}}>SETTINGS</p>
     <hr></hr>
     <div>
         <p>Is the resturaunt open?</p>
-        <p style={{color:openClose.color}}>{openClose.OC}</p>
-        <Switch value={checked} onChange={()=>{handleChange()}} checked={checked}/>
-    </div>
+        <p style={{color:settings.isOpen ? 'red':'green'}}>{settings.isOpen ? 'Closed':'Open'}</p>
+        <ToggleSwitch
+            isOn={value?true:false}
+            handleToggle={value ? setOpen : setClosed}
+            theDefVal={false}
+            // theVal={value?true:false}
+            defChecked={value?true:false}
+        />   </div>
     <hr></hr>
     <div>
         <p>Set Hours:</p>
@@ -236,6 +234,7 @@ const GetSettings = async () => {
 
     </div>
     <hr></hr>
-    </div>)
+    <button onClick={saveSetting}>Save</button>
+    </div>)}
 } 
 export default Settings;
