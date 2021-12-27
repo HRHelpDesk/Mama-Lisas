@@ -14,7 +14,7 @@ const completeOrder = (a,e)=>{
 let sound = new Audio(ding);
 const [updateFeed, setUpdateFeed] = useState()
 const getFeed = async ()=>{
-    const response =  await axios.get('http://localhost:3001/get-order-feed')
+    const response =  await axios.get('https://mama-lisas-api.herokuapp.com/get-order-feed')
     console.log(response)
 
     orderFeed = response.data
