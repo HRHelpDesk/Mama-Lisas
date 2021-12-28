@@ -1,21 +1,70 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import '../../assets/fonts/FoodDelight/FoodDelight.otf'
 import logo from "../../assets/img/logo.png"
 import { Button, Row, Col} from 'react-bootstrap';
 import MenuCat from "../../Components/MenuCat";
 import { Link } from "react-router-dom";
 import Map from '../../Components/Map.jsx';
+import axios from 'axios';
 
 
     
 const Home = ()=>{
-    const location = {
-        address: "1701 Coffee St. Pampa, TX 79065",
-        lat: 35.554470,
-        lng: -100.971110,
-      }
+const [openClosed, setOpenClosed] = useState(false)
+const [openTime, setOpenTime] = useState('')
+const [closedTime, setClosedTime] = useState('')
+const [address, setAddress] = useState('')
+const [pickupTime, setPickupTime] = useState('')
+const [deliveryTime, setDeliveryTime] = useState('')
+const location = {
+    address: address,
+    lat: 35.554470,
+    lng: -100.971110,
+  }
+useEffect(()=>{
+checkOpen('set01')
+.then(checkOpen('set02'))
+.then(checkOpen('set03'))
+.then(checkOpen('set04'))
 
-    const openClosed = true;
+
+
+},[])
+    const checkOpen = async (a)=>{
+        const response = await axios.get('https://mama-lisas-api.herokuapp.com/settings')
+
+        let obj = response.data.filter(i=>{
+            return i.index === a;
+        })
+   if(obj[0].index == 'set02'){
+        if (obj[0].value === 'true'){
+            setOpenClosed(true)
+        }
+
+        else if (obj[0].value === 'true'){
+            setOpenClosed(false)
+        }
+
+        console.log(obj[0].value)
+
+    }
+
+    if (obj[0].index == 'set01'){
+        setAddress(obj[0].value)
+    }
+
+    if (obj[0].index == 'set03'){
+        setOpenTime(obj[0].value)
+    }
+
+    if (obj[0].index == 'set04'){
+        setClosedTime(obj[0].value)
+    }
+
+    
+}
+
+    
     window.onload = ()=>{ if( openClosed == true){
         document.getElementById('open').style.display = 'block';
         document.getElementById('Closed').style.display = 'none';
@@ -37,18 +86,18 @@ const Home = ()=>{
 <div className="food-font" style={{marginTop:'0px'}}>
     <h2>Hours:</h2>
     <h3 style={{margin:'0px'}}>Monday - Friday</h3>
-    <h3>10:30am - 3:30pm</h3>
+    <h3>{openTime} - {closedTime}</h3>
 </div>
 {/* <MenuCat/> */}
         </div>
         <div  id="Closed">
         <div className="food-font" style={{marginTop:'20px'}}>
-            <h1>We are closed today bt we will be back soon!</h1>
+            <h1>We are closed today but we will be back soon!</h1>
             <p></p>
             <div id="open">
     <h2>Hours:</h2>
     <h3 style={{margin:'0px'}}>Monday - Friday</h3>
-    <h3>10:30am - 3:30pm</h3>
+    <h3>{openTime} - {closedTime}</h3>
     
         </div>
 </div>

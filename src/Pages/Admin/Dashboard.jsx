@@ -6,11 +6,29 @@ import axios from "axios";
 const Dashboard = ()=>{
     const[loading, setLoading] = useState(true)
     const[orderArrLength, setOrderArrLength] = useState(0)
+    const [dailyTotal, setDailyTotal] = useState(0)
 let orderFeed = []
 let oldArr;
-const completeOrder = (a,e)=>{
-    alert(`${a} ${e}`)
+const completeOrder = async(i,eml,fn,add)=>{
+
+    const response = await axios.post("http://localhost:3001/send-order-complete",{
+              orderId: i,
+              email: eml,
+              personsName: fn,
+              deliveryAddress: add
+             
+          
+            });
+            console.log(response.data)
+    alert(`${i} ${eml}`)
 }
+
+
+function add(accumulator, a) {
+  return accumulator + a;
+}
+
+
 let sound = new Audio(ding);
 const [updateFeed, setUpdateFeed] = useState()
 const getFeed = async ()=>{
@@ -18,13 +36,22 @@ const getFeed = async ()=>{
     console.log(response)
 
     orderFeed = response.data
+    let numarr =[];
+
+    orderFeed.forEach(i=>{
+        numarr.push(Number(i.total))
+    })
+
+    const getSum = numarr.reduce(add, 0); // with initial value to avoid when the array is empty
+    setDailyTotal(getSum)
     console.log(orderFeed)
+    console.log(getSum)
    setUpdateFeed(orderFeed.map(i=>{
        let orderdata = JSON.parse(i.orderItems)
 console.log(orderdata)
     return(<div style={{border: "2px solid black", margin:'5px', padding:'5px'}}><OrderFeedItem
         date={i.time}
-        id={i.id}
+        id={i.orderId}
         total={i.total}
         name={i.personsName}
         phone={i.phoneNumber}
@@ -38,7 +65,7 @@ console.log(orderdata)
         <hr></hr>
         </div>)
     })}
-<button onClick={()=>{completeOrder(i.id,i.emailAddress)}}>Complete Order</button>
+<button onClick={()=>{completeOrder(i.orderId, i.emailAddress, i.personsName, i.deliveryAddress)}}>Complete Order</button>
     
     <hr></hr>
     </div>)
@@ -99,7 +126,7 @@ const ORDERLIST = [{
         <hr></hr>
         <div>
             <p>TODAYS SALES:</p>
-            <p><b>$<span>0.00</span></b></p>
+            <p><b>$<span>{dailyTotal.toFixed(2)}</span></b></p>
     <button onClick={playSound}>MAson</button>
         </div>
         <hr></hr>

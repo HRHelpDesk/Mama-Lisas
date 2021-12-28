@@ -4,7 +4,7 @@ import ToggleSwitch from "../../Components/ToggleSwitch";
 const Settings = ()=>{
     const [isLoading, setLoading] = useState(true)
     const [settings, setSettings] = useState(null)
-const[checked, setChecked] = useState(false)
+const[checked, setChecked] = useState(null)
 const [value, setValue] = useState(false);
 
 const setOpen = ()=>{
@@ -60,14 +60,63 @@ const showDiv= (e,a)=>{
     document.getElementById(a).style.display = 'none'
 }
 
-const GetSettings = async () => {
 
-    const response = await axios.get("http://localhost:3001/settings");
+
+const findSetting = async (b)=>{
+    const response = await axios.get("https://mama-lisas-api.herokuapp.com/settings");
+
+let arr = response.data
+    let obj = arr.filter(i =>{
+        return i.index === b
+    })
+    console.log(obj[0].index)
+    console.log(obj[0])
+    if (obj[0].index === 'set02'){
+
+        if(obj[0].value === 'true'){
+        setChecked(false)
+        obj[0].value = 'false';
+
+        console.log("set:"+obj[0].value)
+        const res = await axios.post('https://mama-lisas-api.herokuapp.com/settings',obj[0])
+        console.log(res)
+        } else  if(obj[0].value === 'false'){
+            setChecked(true)
+            obj[0].value = true;
+    
+            console.log("set:"+obj[0].value)
+            const res = await axios.post('https://mama-lisas-api.herokuapp.com/settings',obj[0])
+            console.log(res)
+        }
+        console.log(checked)
+    }
+
+}
+
+
+const GetSettings = async (a) => {
+
+    const response = await axios.get("https://mama-lisas-api.herokuapp.com/settings");
   
-    let presets = response.data
-   setSettings(response.data[0])
-  console.log(response.data[0].isOpen)
-  setValue(response.data[0].isOpen)
+  
+  console.log(response.data)
+let obj = response.data.filter(i=>{
+    return i.index === a
+})
+
+if (obj[0].index === 'set02'){
+    if(obj[0].value === 'true'){
+        setChecked(true)
+        console.log('this')
+    }
+
+   else if(obj[0].value === 'false'){
+        setChecked(false)
+        console.log('that')
+    }
+}
+
+  console.log(obj)
 
    
 
@@ -93,7 +142,7 @@ const GetSettings = async () => {
     const Orders = JSON.parse(localStorage.getItem('cart-data'))
 
     useEffect(()=>{
-        GetSettings().then(()=>{
+        GetSettings('set02').then(()=>{
         
                 setLoading(false)}
             
@@ -159,7 +208,7 @@ const GetSettings = async () => {
         })
     }
     const UpdateSettings = (a,b)=>{
-        axios.put('http://localhost:3001/settings', settings)
+        axios.post('https://mama-lisas-api.herokuapp.com/settings', settings)
           .then(response => {
             console.log(response);
             document.getElementById(a).style.display = 'none'
@@ -179,33 +228,34 @@ const GetSettings = async () => {
     } else {
     return(
     <div style={{padding:'60px'}}>
+    <button onClick={()=>{findSetting('set02')}}>Check</button>
     <p style={{fontSize:'32px', textAlign:'end', fontWeight:'bold', color:'gray'}}>SETTINGS</p>
     <hr></hr>
     <div>
         <p>Is the resturaunt open?</p>
-        <p style={{color:settings.isOpen ? 'red':'green'}}>{settings.isOpen ? 'Closed':'Open'}</p>
+        <p style={{color:checked?'green':'red'}}>{checked?'Open':'Closed'}</p>
         <ToggleSwitch
-            isOn={value?true:false}
-            handleToggle={value ? setOpen : setClosed}
-            theDefVal={false}
-            // theVal={value?true:false}
-            defChecked={value?true:false}
+            isOn={checked?true:false}
+            handleToggle={()=>findSetting('set02')}
+           
+            theDefVal={checked?true:false}
+            checked={checked?true:false}
         />   </div>
     <hr></hr>
     <div>
         <p>Set Hours:</p>
-        <p><span>{settings.openTime}</span> to <span>{settings.closedTime}</span></p>
+        <p><span></span> to <span></span></p>
         <a id="edit2" onClick={()=>{showDiv('settingTwo','edit2')}} > edit</a>
       
-       <div style={{display: 'none'}} id="settingTwo"><input onChange={onChangeInputs} name="openTime" type="text" /> to <input value={settings.closedTime} type="text" />
+       <div style={{display: 'none'}} id="settingTwo"><input onChange={onChangeInputs} name="openTime" type="text" /> to <input value='1' type="text" />
     <button onClick={()=>{UpdateSettings("settingTwo",'edit2')}}>Update</button>
       </div>  
     </div>
     <hr></hr>
   
         <p>Delivery Time:</p>
-        <p><span><b>Delivery Time Frame: </b></span><span>{settings.deliveryTime}</span></p>
-        <p><span><b>Pick-up Time Frame: </b></span><span>{settings.pickUpTime}</span></p>
+        <p><span><b>Delivery Time Frame: </b></span><span></span></p>
+        <p><span><b>Pick-up Time Frame: </b></span><span></span></p>
         <a id="edit1" onClick={()=>{showDiv('settingOne','edit1')}}> edit</a>
         <div style={{display: 'none'}} id='settingOne'>
         <input onChange={onChangeInputs} name="deliveryTime" type="text" />
@@ -218,7 +268,7 @@ const GetSettings = async () => {
     <hr></hr>
     <div>
     
-    <p><span><b>Location: </b></span><span>{settings.location}</span></p>
+    <p><span><b>Location: </b></span><span></span></p>
     <a id="edit3" onClick={()=>{showDiv('settingThree', 'edit3')}}> edit</a>
     <div style={{display: 'none'}} id='settingThree'>
         <p>Set Location:</p>

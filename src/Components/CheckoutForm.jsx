@@ -3,7 +3,6 @@ import { CardElement, useStripe, useElements, PaymentElement, PaymentRequestButt
 import axios from "axios";
 import '../assets/css/Checkout.css'
 import {useNavigate} from 'react-router-dom';
-import { pick } from 'lodash';
 
 
 
