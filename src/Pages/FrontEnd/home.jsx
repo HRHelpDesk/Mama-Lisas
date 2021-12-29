@@ -81,7 +81,7 @@ checkOpen('set01')
         <div id="open">
         <Row style={{padding:'0px 150px'}} className="mx-0">
   <Link to="/menu"><Button style={{fontSize:'2.5vw', backgroundColor:'#e32727', border:'none'}} className="food-font" as={Col} variant="primary">ORDER NOW</Button></Link>
- 
+ <Link to='/admin'>Go admin panel</Link>
 </Row>
 <div className="food-font" style={{marginTop:'0px'}}>
     <h2>Hours:</h2>
