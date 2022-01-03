@@ -17,7 +17,7 @@ const Admin = ()=>{
 
 return (
     <div>
-   <Navbar bg="light" expand={false}>
+   <Navbar width="100px" bg="light" expand={false}>
   <Container fluid>
   <Navbar.Toggle aria-controls="offcanvasNavbar" />
     <Navbar.Brand href="#"><img src={logo} width="100px" height="auto"/></Navbar.Brand>

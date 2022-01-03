@@ -7,8 +7,32 @@ const Dashboard = ()=>{
     const[loading, setLoading] = useState(true)
     const[orderArrLength, setOrderArrLength] = useState(0)
     const [dailyTotal, setDailyTotal] = useState(0)
+    const [dailyCompTotal, setDailyCompTotal] = useState(0)
+    const [dailyUnfinishedTotal, setDailyUnfinishedTotal] = useState(0)
 let orderFeed = []
 let oldArr;
+
+const getTodaysSales = async ()=>{
+    const response =  await axios.get('http://localhost:3001/completed-orders')
+let totals= [];
+
+      let data = response.data;
+      
+
+      data.forEach(i=>{
+          totals.push(Number(i.total))
+      })
+
+     console.log(totals)
+
+      const sum = totals.reduce(add, 0); // with initial value to avoid when the array is empty
+      setDailyCompTotal(sum)
+      console.log(dailyCompTotal)
+     
+
+}
+
+
 const completeOrder = async(i,eml,fn,add)=>{
 
     const response = await axios.post("http://localhost:3001/send-order-complete",{
@@ -21,6 +45,7 @@ const completeOrder = async(i,eml,fn,add)=>{
             });
             console.log(response.data)
     alert(`${i} ${eml}`)
+    getTodaysSales()
 }
 
 
@@ -36,16 +61,16 @@ const getFeed = async ()=>{
     console.log(response)
 
     orderFeed = response.data
-    let numarr =[];
-
+    let numarr = [];
     orderFeed.forEach(i=>{
         numarr.push(Number(i.total))
     })
 
-    const getSum = numarr.reduce(add, 0); // with initial value to avoid when the array is empty
-    setDailyTotal(getSum)
-    console.log(orderFeed)
-    console.log(getSum)
+  console.log(numarr)
+
+    const sum = numarr.reduce(add, 0); // with initial value to avoid when the array is empty
+    setDailyUnfinishedTotal(sum)
+    console.log(dailyUnfinishedTotal)
    setUpdateFeed(orderFeed.map(i=>{
        let orderdata = JSON.parse(i.orderItems)
 console.log(orderdata)
@@ -79,16 +104,20 @@ if(orderArrLength < orderFeed.length){
 }
 }
 useEffect(()=>{
-    
+    getTodaysSales()
+    setDailyTotal(dailyUnfinishedTotal + dailyCompTotal)
     getFeed().then(setLoading(false)
     )
 })
+
 
 useEffect(()=>{
     setTimeout(()=>{
         setOrderArrLength(orderFeed.length)
 
     },3000)
+  
+   
 
    console.log(orderArrLength)
 },[])

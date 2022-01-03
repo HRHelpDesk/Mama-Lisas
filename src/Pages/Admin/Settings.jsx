@@ -2,56 +2,21 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import ToggleSwitch from "../../Components/ToggleSwitch";
 const Settings = ()=>{
+const [openTime, setOpenTime] = useState('')
+const [closedTime, setClosedTime] = useState('')
+const [address, setAddress] = useState('')
+const [pickupTime, setPickupTime] = useState('')
+const [deliveryTime, setDeliveryTime] = useState('')
     const [isLoading, setLoading] = useState(true)
     const [settings, setSettings] = useState(null)
 const[checked, setChecked] = useState(null)
 const [value, setValue] = useState(false);
 
-const setOpen = ()=>{
-    setValue(false)
-    console.log('set open')
-    setTimeout(()=>{
-        setSettings((prevState)=>{
 
-            let ojb = Object.assign({}, prevState.settings);  // creating copy of state variable jasper
-            ojb.isOpen = value;                     // update the name property, assign a new value                 
-  return { ojb };     
-       
-    })},1500)
-
-    setTimeout(()=>{
-        console.log(settings.isOpen)
-        UpdateSettings()
-        GetSettings()
-    },3000)
-
-
-}
 
 const saveSetting = ()=>{
     console.log(settings.isOpen)
 }
-
-const setClosed = ()=>{
-    setValue(true)
-    console.log('set closed')
-    setTimeout(()=>{
-        setSettings((prevState)=>{
-
-            let ojb = Object.assign({}, prevState.settings);  // creating copy of state variable jasper
-            ojb.isOpen = value;                     // update the name property, assign a new value                 
-  return { ojb };     
-       
-    })},1500)
-
-    setTimeout(()=>{
-        console.log(settings.isOpen)
-        UpdateSettings()
-        GetSettings()
-    },3000)
-
-}
-
 
 
 
@@ -62,7 +27,7 @@ const showDiv= (e,a)=>{
 
 
 
-const findSetting = async (b)=>{
+const findSetting = async (b,a,c)=>{
     const response = await axios.get("https://mama-lisas-api.herokuapp.com/settings");
 
 let arr = response.data
@@ -91,6 +56,60 @@ let arr = response.data
         console.log(checked)
     }
 
+    if (obj[0].index == 'set01'){
+
+        obj[0].value = address
+        
+
+        const res = await axios.post('https://mama-lisas-api.herokuapp.com/settings',obj[0])
+       if(document.getElementById(a)){
+        document.getElementById(a).style.display = 'none'
+        document.getElementById(c).style.display = 'block'
+       }
+    }
+
+    if (obj[0].index == 'set03'){
+        obj[0].value = openTime
+        
+
+        const res = await axios.post('https://mama-lisas-api.herokuapp.com/settings',obj[0])
+       if(document.getElementById(a)){
+        document.getElementById(a).style.display = 'none'
+        document.getElementById(c).style.display = 'block'
+       }
+    }
+
+    if (obj[0].index == 'set04'){
+        obj[0].value = closedTime
+        
+
+        const res = await axios.post('https://mama-lisas-api.herokuapp.com/settings',obj[0])
+       if(document.getElementById(a)){
+        document.getElementById(a).style.display = 'none'
+        document.getElementById(c).style.display = 'block'
+       }
+    }
+    if (obj[0].index == 'set05'){
+        obj[0].value = pickupTime
+        
+
+        const res = await axios.post('https://mama-lisas-api.herokuapp.com/settings',obj[0])
+       if(document.getElementById(a)){
+        document.getElementById(a).style.display = 'none'
+        document.getElementById(c).style.display = 'block'
+       }
+    }
+    if (obj[0].index == 'set06'){
+        obj[0].value = deliveryTime
+        
+
+        const res = await axios.post('https://mama-lisas-api.herokuapp.com/settings',obj[0])
+       if(document.getElementById(a)){
+        document.getElementById(a).style.display = 'none'
+        document.getElementById(c).style.display = 'block'
+       }
+    }
+
 }
 
 
@@ -116,6 +135,24 @@ if (obj[0].index === 'set02'){
     }
 }
 
+if (obj[0].index == 'set01'){
+    setAddress(obj[0].value)
+}
+
+if (obj[0].index == 'set03'){
+    setOpenTime(obj[0].value)
+}
+
+if (obj[0].index == 'set04'){
+    setClosedTime(obj[0].value)
+}
+if (obj[0].index == 'set05'){
+    setPickupTime(obj[0].value)
+}
+if (obj[0].index == 'set06'){
+    setDeliveryTime(obj[0].value)
+}
+
   console.log(obj)
 
    
@@ -123,30 +160,19 @@ if (obj[0].index === 'set02'){
     
 
     };
-    let openStatus = [
-        
-            {
-                OC:'Closed',
-                color: 'red'
-            },
-            {
-                OC:'Open',
-                color: 'green'
-            }
-
-        
-    ]
-
+ 
   
 
-    const Orders = JSON.parse(localStorage.getItem('cart-data'))
+   
 
     useEffect(()=>{
-        GetSettings('set02').then(()=>{
-        
-                setLoading(false)}
-            
-          )
+        GetSettings('set01')
+      .then(GetSettings('set02'))
+      .then(GetSettings('set03'))
+     .then(GetSettings('set04'))
+     .then(GetSettings('set05'))
+        .then(GetSettings('set06'))
+        .then(setLoading(false))
        
     },[])
     const onChangeInputs = (event)=>{
@@ -244,36 +270,36 @@ if (obj[0].index === 'set02'){
     <hr></hr>
     <div>
         <p>Set Hours:</p>
-        <p><span></span> to <span></span></p>
+        <p><span>{openTime}</span> to <span>{closedTime}</span></p>
         <a id="edit2" onClick={()=>{showDiv('settingTwo','edit2')}} > edit</a>
       
-       <div style={{display: 'none'}} id="settingTwo"><input onChange={onChangeInputs} name="openTime" type="text" /> to <input value='1' type="text" />
-    <button onClick={()=>{UpdateSettings("settingTwo",'edit2')}}>Update</button>
+       <div style={{display: 'none'}} id="settingTwo"><input onChange={(e)=>{setOpenTime(e.target.value);}} name="openTime" type="text" /> to <input onChange={(e)=>{setClosedTime(e.target.value);}}  type="text" />
+    <button onClick={()=>{findSetting('set03',"settingTwo",'edit2'); findSetting('set04',"settingTwo",'edit2')} }>Update</button>
       </div>  
     </div>
     <hr></hr>
   
         <p>Delivery Time:</p>
-        <p><span><b>Delivery Time Frame: </b></span><span></span></p>
-        <p><span><b>Pick-up Time Frame: </b></span><span></span></p>
+        <p><span><b>Delivery Time Frame: </b></span>{deliveryTime}<span></span></p>
+        <p><span><b>Pick-up Time Frame: </b></span>{pickupTime}<span></span></p>
         <a id="edit1" onClick={()=>{showDiv('settingOne','edit1')}}> edit</a>
         <div style={{display: 'none'}} id='settingOne'>
-        <input onChange={onChangeInputs} name="deliveryTime" type="text" />
+        <input onChange={(e)=>{setDeliveryTime(e.target.value);}} name="deliveryTime" type="text" />
 
         <p>Pick-up Time:</p>
-        <input onChange={onChangeInputs} name="pickUpTime"  type="text" />
-        <button onClick={()=>{UpdateSettings("settingOne",'edit1')}}>Update</button>
+        <input onChange={(e)=>{setPickupTime(e.target.value);}} name="pickUpTime"  type="text" />
+        <button onClick={()=>{findSetting('set05',"settingOne",'edit1')}}>Update</button>
         
     </div>
     <hr></hr>
     <div>
     
-    <p><span><b>Location: </b></span><span></span></p>
+    <p><span><b>Location: </b></span>{address}<span></span></p>
     <a id="edit3" onClick={()=>{showDiv('settingThree', 'edit3')}}> edit</a>
     <div style={{display: 'none'}} id='settingThree'>
         <p>Set Location:</p>
-        <input onChange={onChangeInputs} name="location" type="text" />
-        <button onClick={()=>{UpdateSettings("settingThree",'edit3')}}>Update</button>
+        <input onChange={(e)=>{setAddress(e.target.value);}} name="location" type="text" />
+        <button onClick={()=>{findSetting('set01',"settingThree",'edit3')}}>Update</button>
 
 </div>
     </div>
