@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/Mama-Lisas/static/css/main.32d415bd.chunk.css",
-    "main.js": "/Mama-Lisas/static/js/main.764d5efc.chunk.js",
-    "main.js.map": "/Mama-Lisas/static/js/main.764d5efc.chunk.js.map",
+    "main.js": "/Mama-Lisas/static/js/main.54c3135f.chunk.js",
+    "main.js.map": "/Mama-Lisas/static/js/main.54c3135f.chunk.js.map",
     "runtime-main.js": "/Mama-Lisas/static/js/runtime-main.3f09d078.js",
     "runtime-main.js.map": "/Mama-Lisas/static/js/runtime-main.3f09d078.js.map",
     "static/css/2.598ff574.chunk.css": "/Mama-Lisas/static/css/2.598ff574.chunk.css",
@@ -33,6 +33,6 @@
     "static/css/2.598ff574.chunk.css",
     "static/js/2.8ff61379.chunk.js",
     "static/css/main.32d415bd.chunk.css",
-    "static/js/main.764d5efc.chunk.js"
+    "static/js/main.54c3135f.chunk.js"
   ]
 }
