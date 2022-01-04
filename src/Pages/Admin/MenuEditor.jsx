@@ -85,14 +85,14 @@ let category ;
       
       }
 
-  let resp = await axios.post('http://localhost:3001/delete-menu-item', {obj: obj, category: category})
+  let resp = await axios.post('https://mama-lisas-api.herokuapp.com/delete-menu-item', {obj: obj, category: category})
 console.log(resp.data)
 setLgShow(false)
 loadMenu()
  }
 
 const SaveMenuItem = async ()=>{
-    let resp = await axios.post('http://localhost:3001/menu-update', obj[0])
+    let resp = await axios.post('https://mama-lisas-api.herokuapp.com/menu-update', obj[0])
 console.log(resp.data)
 setLgShow(false)
 loadMenu()
@@ -160,7 +160,7 @@ const AddNewMenuItem = (a)=>{
  <br></br>
 <Button onClick={async()=>{
 
-    let resp = await axios.post('http://localhost:3001/add-menu-item', newObj)
+    let resp = await axios.post('https://mama-lisas-api.herokuapp.com/add-menu-item', newObj)
 console.log(resp.data)
 setLgShow(false)
 setTimeout(()=> loadMenu(),1000)
