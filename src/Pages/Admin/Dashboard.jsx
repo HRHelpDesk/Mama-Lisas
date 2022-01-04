@@ -13,7 +13,7 @@ let orderFeed = []
 let oldArr;
 
 const getTodaysSales = async ()=>{
-    const response =  await axios.get('http://localhost:3001/completed-orders')
+    const response =  await axios.get('https://mama-lisas-api.herokuapp.com/completed-orders')
 let totals= [];
 
       let data = response.data;
@@ -35,7 +35,7 @@ let totals= [];
 
 const completeOrder = async(i,eml,fn,add)=>{
 
-    const response = await axios.post("http://localhost:3001/send-order-complete",{
+    const response = await axios.post("https://mama-lisas-api.herokuapp.com/send-order-complete",{
               orderId: i,
               email: eml,
               personsName: fn,

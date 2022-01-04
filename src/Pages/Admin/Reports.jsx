@@ -17,7 +17,7 @@ const[data,setData] = useState('')
     })
     
    const loadOrders = async ()=>{
-    const response =  await axios.get('http://localhost:3001/completed-orders')
+    const response =  await axios.get('https://mama-lisas-api.herokuapp.com/completed-orders')
    const  sorted = response.data.sort((a, b) => {
         const aDate = new Date(a.time[0] + ' ' + a.time[1])
         const bDate = new Date(b.time[0] + ' ' + b.time[1])
@@ -31,9 +31,13 @@ const[data,setData] = useState('')
         // console.log(addonArr)
           return (
             <tr onClick={() => setToggle(toggle => !toggle)}>
-         <td >{i.personsName}</td>
+            <td>{i.orderId}</td>
+            <td>{i.time[0]}</td>
+         <td >{i.time[1]}</td>
+         <td>{i.personsName}</td>
+         <td>{i.pickUpOrDelivery}</td>
                             <td>{i.total}</td>
-                            <td>{i.time[1]} {i.time[0]}</td>
+                            
                        
         </tr>
        
@@ -60,9 +64,12 @@ return(
     <Table striped bordered hover>
                 <thead>
                     <tr>
-                        <th>#</th>
+                        <th>Order ID</th>
+                        <th>Date</th>
+                        <th>Time</th>
                         <th>Name</th>
-                        <th>Email</th>
+                        <th>Type</th>
+                        <th>Total</th>
                     </tr>
                 </thead>
                <tbody>
