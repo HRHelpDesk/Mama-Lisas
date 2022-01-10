@@ -4,6 +4,7 @@
   "private": true,
   "homepage": "https://masonmerrell22.github.io/Mama-Lisas/",
   "dependencies": {
+    "@paypal/react-paypal-js": "^7.5.0",
     "@serialport/parser-readline": "^9.2.4",
     "@stripe/react-stripe-js": "^1.6.0",
     "@stripe/stripe-js": "^1.21.2",
@@ -18,8 +19,10 @@
     "react": "^17.0.2",
     "react-apple-mapkitjs": "^0.2.5",
     "react-bootstrap": "^2.1.0",
+    "react-card-swipe": "^0.1.1",
     "react-collapse": "^5.1.1",
     "react-dom": "^17.0.2",
+    "react-native-nfc-card-reader": "^1.0.5",
     "react-router-dom": "^6.0.1",
     "react-scripts": "4.0.3",
     "react-stripe-checkout": "^2.6.3",
@@ -27,6 +30,9 @@
     "serialport": "^9.2.8",
     "smartcard": "^1.0.46",
     "stripe": "^8.191.0",
+    "tweet-json-to-html": "^1.0.2",
+    "twit": "^2.2.11",
+    "twitter-api-v2": "^1.8.1",
     "web-vitals": "^1.1.2"
   },
   "scripts": {

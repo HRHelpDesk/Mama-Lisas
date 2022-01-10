@@ -13,6 +13,7 @@ import Settings from './Settings'
 import RegisterMenu from "./RegisterMenu";
 import SideNav from "../../Components/SideNav.jsx";
 import {Container, Row, Col, Card, Form, Button, Nav, Navbar,Offcanvas, NavDropdown, FormControl } from "react-bootstrap";
+import ParentRegister from "./ParentRegister";
 const Admin = ()=>{
 
 return (
@@ -57,7 +58,7 @@ return (
         <Route path="Menu-Editor" element={<MenuEditor />} />
         <Route path="settings" element={<Settings />} />
         <Route path="reports" element={<Reports />} />
-        <Route path="admin-order" element={<RegisterMenu />} />
+        <Route path="admin-order" element={<ParentRegister />} />
         
       </Routes>
     </div>

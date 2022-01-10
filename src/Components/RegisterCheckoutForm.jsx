@@ -7,7 +7,7 @@ import {useNavigate} from 'react-router-dom';
 
 
 
-const CheckoutForm = (props,{ price, onSuccessfulCheckout }) => {
+const RegisterCheckoutForm = (props,{ price, onSuccessfulCheckout }) => {
     const [error, setError] = useState('')
     const [buttonText, setButtonText] = useState('PAY')
     const [spinner, showSpinner] = useState('none')
@@ -25,10 +25,9 @@ const CheckoutForm = (props,{ price, onSuccessfulCheckout }) => {
         
 
         const response = await axios.post("https://mama-lisas-api.herokuapp.com/send-email-pickup",{
-            fname: props.emailName,
-            lname: props.emailLName,
+      
             email: props.emailAddress,
-            phone:props.emailPhoneNumber,
+           
             confirmation: props.emailConfirmation,
             order: props.emailOrderData,
             pickupOrDelivery: props.pickupOrDeliveryEmail,
@@ -78,48 +77,35 @@ const CheckoutForm = (props,{ price, onSuccessfulCheckout }) => {
         }
    
     const handleSubmit = async (e) => {
-        console.log(props.inputObject.fName + props.inputObject.address + props.inputObject.email)
-         let city = props.city.split(' ').join('');
-         console.log(city)
-        if(city != "pampa"){
+      
             e.preventDefault()
-            alert('We do not Deliver Outside of City Limits of PAMPA.')
-        } else{
-            if(props.inputObject.fname  || props.inputObject.address || props.inputObject.email !== null){
-              
-             
-            setEnableDis(true )
-            e.preventDefault()
+         
+        
         showSpinner('inline-block')
         setButtonText("PROCESSING")
         const {error, paymentMethod} = await stripe.createPaymentMethod({
-            type: "applePay",
+            type: "card",
             card: elements.getElement(CardElement)
         })
         if(!error) {
             
             try {
                 const {id} = paymentMethod
-                const response = await axios.post("https://mama-lisas-api.herokuapp.com/payment", {
+                const response = await axios.post("http://localhost:3001/payment", {
                     amount: props.price,
                     id,
-                    confNumber: orderData.confirmation
+                    confNumber: 'regorder'
                 })
     
                 if(response.data.success) {
                     console.log(orderData.pickupOrDelivery)
-                    if(orderData.pickupOrDelivery === "Pick-up"){
+                  
                                             
                     console.log("Successful payment")
                     sendEmailPickup()
                     localStorage.setItem('cart-person', JSON.stringify(orderData))
                     navigate('/success')
-                                        } else{
-                                            console.log("Successful payment")
-                                            sendEmailDelivery()
-                                            localStorage.setItem('cart-person', JSON.stringify(orderData))
-                                            navigate('/deliverysuccess')
-                                        }
+                    
                     
                  
                    
@@ -140,11 +126,7 @@ const CheckoutForm = (props,{ price, onSuccessfulCheckout }) => {
         setButtonText("PAY")
         }
   
-    } else {
-        alert("Please fill out the entire form.")
-        e.preventDefault()
-    }
-}
+
     }
 
   return (
@@ -153,15 +135,11 @@ const CheckoutForm = (props,{ price, onSuccessfulCheckout }) => {
     <form onSubmit={handleSubmit}>
         <fieldset >
             <div className="FormRow">
-                <CardElement onChange={props.onchange} id={props.ceId} value={props.val} onFocus={props.onfocus}  options={props.options}/>
+                <CardElement onChange={props.onchange} id={props.ceId} value={props.val} onFocus={props.onfocus}  onBlur={props.onblur} options={props.options}/>
             </div>
         </fieldset>
         <p style={{fontSize:'small'}}>Powered by <b>STRIPE</b></p>
-<div style={{display:props.showHide, textAlign:'end'}}>
-        <p style={{marginTop:'5px'}} className="item-total">Delivery Charge: ${props.deliveryCharge}</p>
 
-<p className="item-total">(This is not the driver's tip.)</p>
-</div>
         <p style={{marginTop:'5px', textAlign:'end'}} className="item-total">Order Total: $<span>{props.ckoutTotal}</span></p>
         <div className="btns">
        
@@ -181,4 +159,4 @@ const CheckoutForm = (props,{ price, onSuccessfulCheckout }) => {
     </>
   );
 };
-export default CheckoutForm;
+export default RegisterCheckoutForm;
