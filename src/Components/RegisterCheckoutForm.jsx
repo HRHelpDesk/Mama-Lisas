@@ -139,7 +139,7 @@ const RegisterCheckoutForm = (props,{ price, onSuccessfulCheckout }) => {
             </div>
         </fieldset>
         <p style={{fontSize:'small'}}>Powered by <b>STRIPE</b></p>
-
+{props.additional}
         <p style={{marginTop:'5px', textAlign:'end'}} className="item-total">Order Total: $<span>{props.ckoutTotal}</span></p>
         <div className="btns">
        

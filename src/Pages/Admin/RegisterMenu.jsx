@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import {useNavigate} from 'react-router-dom';
 import axios from 'axios'
 import RegisterCheckoutForm from "../../Components/RegisterCheckoutForm";
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
@@ -8,6 +9,7 @@ import { Modal, Button } from "react-bootstrap";
 
 const apiUrl = "https://mama-lisas-api.herokuapp.com/"
 const RegisterMenu = ()=>{
+  const navigate = useNavigate();
 
     const[entData,setEntData] = useState()
     const[drData,setDrData] = useState()
@@ -24,7 +26,10 @@ const[totalCost, setTotalCost] = useState(0)
    const [cardNo, setCardNo] =useState([])
    const [isCredit, setIsCredit] =useState('none')
    const [isSwipeReady, setIsSwipeReady] =useState(true)
-   const [isCardLoaded, setIsCardLoaded] =useState(false)
+   const [isCash, setIsCash] =useState('none')  
+    const [isCardLoaded, setIsCardLoaded] =useState(false)
+    const [emailReciept, setEmailedRecipt] = useState(false)
+    const [customersEmail, setCustomersEmail] = useState('')
    let addArr =[];
  let cartTotalArr = [];
     let ME = [];
@@ -114,6 +119,8 @@ navigator.clipboard.writeText(text).then(function() {
           <p style={{fontSize:'13px'}}>{i.specialInstructions}</p>
            <p style={{textAlign:'end'}}><b>${i.price.toFixed(2)}</b></p></div>)
        }))
+
+       localStorage.setItem('cart', JSON.stringify(cartArr))
     }
 
     function getSum(accumulator, a) {
@@ -301,19 +308,21 @@ loadMenu('menu-desserts',MDS)})
         setCheckoutShow(true)}} style={{width:'100%'}}>Checkout Credit</Button>
     <p></p>
     <Button onClick={()=>{
+      console.log(cartArr)
         setCheckoutData(()=>{
             return(
                 <div>
                 <p>Enter Cash Ammount:</p>
                     <input onChange={updateCashReturn} type='text'/>
 
-                    <p><b>{cashReturnAmmount}</b></p>
 
                     <p><b>Order Total:${cartTotal.toFixed(2)}</b></p>
+                    
                     <p></p>
                 </div>
             )
         })
+        setIsCash('block')
         
         setCheckoutShow(true)}}  style={{width:'100%'}}>Checkout Cash</Button>
 </div>
@@ -336,8 +345,11 @@ loadMenu('menu-desserts',MDS)})
         <Modal.Body>
        {itemData}   
        {addOnData}    
+
        <div >
        {cartButton}
+
+       
         <p style={{float:'right'}}><b>${totalCost.toFixed(2)}</b></p>
         </div>
         </Modal.Body>
@@ -348,7 +360,7 @@ loadMenu('menu-desserts',MDS)})
       <Modal
         size="lg"
         show={checkoutShow}
-        onHide={() => {setCheckoutShow(false); priceArr.length = 0; addArr.length = 0; console.log(priceArr); setIsCredit('none'); setIsCardLoaded('none'); console.log(Math.round(cartTotal)* 100)}}
+        onHide={() => {setCheckoutShow(false); priceArr.length = 0; addArr.length = 0; console.log(priceArr); setIsCredit('none'); setIsCash('none'); setIsCardLoaded('none'); console.log(Math.round(cartTotal)* 100)}}
         aria-labelledby="example-modal-sizes-title-lg"
       >
         <Modal.Header closeButton>
@@ -358,12 +370,75 @@ loadMenu('menu-desserts',MDS)})
         </Modal.Header>
         <Modal.Body>
          {checkoutData}
-       {cashReturnAmmount}
-      
+         
+  <div style={{display: isCash}}>
+  <p><b>Ammount to be returned:</b></p>
+         <p><b>${Number(cashReturnAmmount).toFixed(2)}</b></p>
+         <label>Emailed Reciept?</label><input type="checkbox" onChange={(e)=>{
+              if(e.target.checked){
+                setEmailedRecipt(true)
+              } else {
+                setEmailedRecipt(false)
+              }
+             
+         }} /> <br></br>
+         <p><b>Person's Name:</b></p>
+         <input onChange={(e)=>{
+               let v = e.target.value
+           }} type='text'/>
+         <div style={{display: emailReciept ? 'block':'none'}}>
+         
+         <p><b>Enter Customer's Email Address:</b></p>
+           <input onChange={(e)=>{
+               let v = e.target.value
+           }} type='text'/>
+         </div>
+         
+         <br></br>
+         <Button onClick={async () =>{
+           const openReg = await axios.get('http://localhost:3001/openRegister')
+          const resp = await axios.post('http://localhost:3001/send-email-pickup-register',{
+             total: cartTotal.toFixed(2),
+             name:'Tina',
+             email:'na',
+             confirmation: 'register-axf975',
+             order:localStorage.getItem('cart')
+           });
+
+           console.log(resp.data)
+           console.log(openReg)
+
+           if (resp.data == 'order-sent'){
+                
+                alert('order has been proccessed. Now redirecting to the dashboard')
+                navigate('/admin')
+               }
+
+         }} >Complete Transaction</Button>
+
+         
+</div>
 
      <div style={{display:isCredit}}>
        <RegisterCheckoutForm 
-               val={{postalCode: '45654'}}
+       additional={
+       <div>
+       <label>Emailed Reciept?</label><input type="checkbox" onChange={(e)=>{
+              if(e.target.checked){
+                setEmailedRecipt(true)
+              } else {
+                setEmailedRecipt(false)
+              }
+             
+         }} /> <br></br>
+         <div style={{display: emailReciept ? 'block':'none'}}>
+         <p><b>Enter Customer's Email Address:</b></p>
+           <input onChange={(e)=>{
+               let v = e.target.value
+           }} type='text'/>
+         </div>
+         </div>}
+              emailAddress={customersEmail}
                price={Math.round(cartTotal)* 100}
                ckoutTotal={cartTotal.toFixed(2)} 
                 onchange={()=>{copy(cardNo.expMonth+ cardNo.expYear);
@@ -381,6 +456,7 @@ loadMenu('menu-desserts',MDS)})
                 options={CARD_OPTIONS}
                
                 />
+              
                  <p style={{color: isCardLoaded? 'green': 'red'}}>{isCardLoaded? 'Paste into Card Box': ''}</p>
                 <p style={{color: isSwipeReady? 'green': 'red'}}>{isSwipeReady? 'Ready to Swipe': 'DO NOT SWIPE'}</p>
      
